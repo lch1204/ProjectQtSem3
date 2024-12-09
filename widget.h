@@ -2,14 +2,10 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include "ui_widget.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class Widget;
-}
-QT_END_NAMESPACE
 
-class Widget : public QWidget
+class Widget : public QWidget, private Ui::Widget
 {
     Q_OBJECT
 
@@ -17,7 +13,11 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
 
-private:
-    Ui::Widget *ui;
+private slots:
+    void on_setNewObjComboBox_textActivated(const QString &arg1);
+
+    void on_trajectoryComboBox_textActivated(const QString &arg1);
+    void on_changeMapComboBox_textActivated(const QString &arg1);
+    void on_pbUpdate_clicked();
 };
 #endif // WIDGET_H

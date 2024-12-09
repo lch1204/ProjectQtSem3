@@ -422,7 +422,6 @@ ui_mapgidroform.h: ../../mapgidroform.ui \
 
 ui_widget.h: ../../widget.ui \
 		/usr/lib/qt5/bin/uic \
-		../../graphform.h \
 		../../mapgidroform.h \
 		ui_mapgidroform.h
 	/usr/lib/qt5/bin/uic ../../widget.ui -o ui_widget.h
@@ -450,7 +449,6 @@ mapgidroform.o: ../../mapgidroform.cpp ../../mapgidroform.h \
 
 widget.o: ../../widget.cpp ../../widget.h \
 		ui_widget.h \
-		../../graphform.h \
 		../../mapgidroform.h \
 		ui_mapgidroform.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o widget.o ../../widget.cpp

@@ -16,7 +16,7 @@ public:
     explicit MapGidroForm(QWidget *parent = nullptr);
     ~MapGidroForm();
 
-private:
+public:
     QChartView * chartView;
     QChart *chart = nullptr;
     QHBoxLayout *hLayout;
