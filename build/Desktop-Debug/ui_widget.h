@@ -20,7 +20,6 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBox>
@@ -45,15 +44,17 @@ public:
     QPushButton *pushButton;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
-    QPushButton *pushButton_4;
     QVBoxLayout *verticalLayout_5;
-    QSpacerItem *verticalSpacer_2;
     QLabel *label_6;
     QCheckBox *checkBox_2;
     QCheckBox *checkBox_3;
     QToolBox *toolBox;
     QWidget *setAqua;
-    QHBoxLayout *horizontalLayout_5;
+    QVBoxLayout *verticalLayout_20;
+    QHBoxLayout *horizontalLayout_3;
+    QPushButton *pbUpdate;
+    QPushButton *pbClear;
+    QLabel *label_7;
     QFormLayout *formLayout_3;
     QLabel *Label_6;
     QLineEdit *latLineEdit;
@@ -63,8 +64,16 @@ public:
     QLineEdit *depthLineEdit;
     QLabel *speedLabel;
     QLineEdit *speedLineEdit;
-    QPushButton *pbClear;
-    QPushButton *pbUpdate;
+    QLabel *label_8;
+    QFormLayout *formLayout_7;
+    QLabel *xminMLabel;
+    QLabel *xmaxMLabel;
+    QLineEdit *xminMLineEdit;
+    QLineEdit *xmaxMLineEdit;
+    QLineEdit *yminMLineEdit;
+    QLabel *yminMLabel;
+    QLabel *ymaxMLabel;
+    QLineEdit *ymaxMLineEdit;
     QWidget *setObject;
     QVBoxLayout *verticalLayout_8;
     QGroupBox *maikFolder;
@@ -77,17 +86,18 @@ public:
     QVBoxLayout *verticalLayout_9;
     QFormLayout *formLayout;
     QLabel *xLabel;
-    QLineEdit *xLineEdit;
-    QLabel *yLabel;
-    QLineEdit *yLineEdit;
+    QLineEdit *xModemLineEdit;
+    QLabel *yModemLabel;
+    QLineEdit *yModemLineEdit;
     QPushButton *pbSet;
     QLabel *label;
     QLabel *Label;
-    QLineEdit *numerModemLineEdit;
+    QLineEdit *numberDelModemLineEdit;
     QLabel *label_2;
     QPushButton *pbDel;
     QLineEdit *numberModemLineEdit;
     QLabel *Label_11;
+    QLabel *labelSetErrorObject;
     QWidget *auv;
     QVBoxLayout *verticalLayout_13;
     QVBoxLayout *verticalLayout_11;
@@ -120,7 +130,6 @@ public:
     QWidget *setAlgoritm;
     QHBoxLayout *horizontalLayout_4;
     QVBoxLayout *verticalLayout_2;
-    QSpacerItem *verticalSpacer;
     QVBoxLayout *verticalLayout;
     QLabel *label_3;
     QLabel *label_4;
@@ -140,8 +149,7 @@ public:
     QLineEdit *timeLineEdit;
     QCheckBox *checkBox;
     QWidget *diagn;
-    QVBoxLayout *verticalLayout_18;
-    QVBoxLayout *verticalLayout_17;
+    QPushButton *pushButton_4;
     QComboBox *changeMapComboBox;
     QPlainTextEdit *log;
     QStackedWidget *changeMapStackedWidget;
@@ -257,6 +265,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
         tabWidget->setSizePolicy(sizePolicy);
+        tabWidget->setMinimumSize(QSize(350, 0));
         QPalette palette1;
         QBrush brush16(QColor(153, 253, 217, 255));
         brush16.setStyle(Qt::SolidPattern);
@@ -266,6 +275,7 @@ public:
         tabWidget->setPalette(palette1);
         tabWidget->setFocusPolicy(Qt::TabFocus);
         tabWidget->setContextMenuPolicy(Qt::NoContextMenu);
+        tabWidget->setUsesScrollButtons(true);
         mission = new QWidget();
         mission->setObjectName(QString::fromUtf8("mission"));
         verticalLayout_7 = new QVBoxLayout(mission);
@@ -293,20 +303,11 @@ public:
 
         verticalLayout_4->addWidget(pushButton_3);
 
-        pushButton_4 = new QPushButton(mission);
-        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
-
-        verticalLayout_4->addWidget(pushButton_4);
-
 
         horizontalLayout_2->addLayout(verticalLayout_4);
 
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_5->addItem(verticalSpacer_2);
-
         label_6 = new QLabel(mission);
         label_6->setObjectName(QString::fromUtf8("label_6"));
 
@@ -334,9 +335,30 @@ public:
         toolBox->setObjectName(QString::fromUtf8("toolBox"));
         setAqua = new QWidget();
         setAqua->setObjectName(QString::fromUtf8("setAqua"));
-        setAqua->setGeometry(QRect(0, 0, 381, 349));
-        horizontalLayout_5 = new QHBoxLayout(setAqua);
-        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        setAqua->setGeometry(QRect(0, 0, 404, 338));
+        verticalLayout_20 = new QVBoxLayout(setAqua);
+        verticalLayout_20->setObjectName(QString::fromUtf8("verticalLayout_20"));
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        pbUpdate = new QPushButton(setAqua);
+        pbUpdate->setObjectName(QString::fromUtf8("pbUpdate"));
+
+        horizontalLayout_3->addWidget(pbUpdate);
+
+        pbClear = new QPushButton(setAqua);
+        pbClear->setObjectName(QString::fromUtf8("pbClear"));
+
+        horizontalLayout_3->addWidget(pbClear);
+
+
+        verticalLayout_20->addLayout(horizontalLayout_3);
+
+        label_7 = new QLabel(setAqua);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+        label_7->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_20->addWidget(label_7);
+
         formLayout_3 = new QFormLayout();
         formLayout_3->setObjectName(QString::fromUtf8("formLayout_3"));
         Label_6 = new QLabel(setAqua);
@@ -346,6 +368,10 @@ public:
 
         latLineEdit = new QLineEdit(setAqua);
         latLineEdit->setObjectName(QString::fromUtf8("latLineEdit"));
+        latLineEdit->setInputMask(QString::fromUtf8(""));
+        latLineEdit->setEchoMode(QLineEdit::Normal);
+        latLineEdit->setCursorPosition(0);
+        latLineEdit->setDragEnabled(false);
 
         formLayout_3->setWidget(0, QFormLayout::FieldRole, latLineEdit);
 
@@ -379,23 +405,76 @@ public:
 
         formLayout_3->setWidget(3, QFormLayout::FieldRole, speedLineEdit);
 
-        pbClear = new QPushButton(setAqua);
-        pbClear->setObjectName(QString::fromUtf8("pbClear"));
 
-        formLayout_3->setWidget(4, QFormLayout::FieldRole, pbClear);
+        verticalLayout_20->addLayout(formLayout_3);
 
-        pbUpdate = new QPushButton(setAqua);
-        pbUpdate->setObjectName(QString::fromUtf8("pbUpdate"));
+        label_8 = new QLabel(setAqua);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setAlignment(Qt::AlignCenter);
 
-        formLayout_3->setWidget(5, QFormLayout::FieldRole, pbUpdate);
+        verticalLayout_20->addWidget(label_8);
+
+        formLayout_7 = new QFormLayout();
+        formLayout_7->setObjectName(QString::fromUtf8("formLayout_7"));
+        formLayout_7->setLabelAlignment(Qt::AlignCenter);
+        xminMLabel = new QLabel(setAqua);
+        xminMLabel->setObjectName(QString::fromUtf8("xminMLabel"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(xminMLabel->sizePolicy().hasHeightForWidth());
+        xminMLabel->setSizePolicy(sizePolicy1);
+        xminMLabel->setAlignment(Qt::AlignCenter);
+
+        formLayout_7->setWidget(0, QFormLayout::LabelRole, xminMLabel);
+
+        xmaxMLabel = new QLabel(setAqua);
+        xmaxMLabel->setObjectName(QString::fromUtf8("xmaxMLabel"));
+        xmaxMLabel->setAlignment(Qt::AlignCenter);
+
+        formLayout_7->setWidget(0, QFormLayout::FieldRole, xmaxMLabel);
+
+        xminMLineEdit = new QLineEdit(setAqua);
+        xminMLineEdit->setObjectName(QString::fromUtf8("xminMLineEdit"));
+
+        formLayout_7->setWidget(1, QFormLayout::LabelRole, xminMLineEdit);
+
+        xmaxMLineEdit = new QLineEdit(setAqua);
+        xmaxMLineEdit->setObjectName(QString::fromUtf8("xmaxMLineEdit"));
+
+        formLayout_7->setWidget(1, QFormLayout::FieldRole, xmaxMLineEdit);
+
+        yminMLineEdit = new QLineEdit(setAqua);
+        yminMLineEdit->setObjectName(QString::fromUtf8("yminMLineEdit"));
+
+        formLayout_7->setWidget(3, QFormLayout::LabelRole, yminMLineEdit);
+
+        yminMLabel = new QLabel(setAqua);
+        yminMLabel->setObjectName(QString::fromUtf8("yminMLabel"));
+        sizePolicy1.setHeightForWidth(yminMLabel->sizePolicy().hasHeightForWidth());
+        yminMLabel->setSizePolicy(sizePolicy1);
+        yminMLabel->setAlignment(Qt::AlignCenter);
+
+        formLayout_7->setWidget(2, QFormLayout::LabelRole, yminMLabel);
+
+        ymaxMLabel = new QLabel(setAqua);
+        ymaxMLabel->setObjectName(QString::fromUtf8("ymaxMLabel"));
+        ymaxMLabel->setAlignment(Qt::AlignCenter);
+
+        formLayout_7->setWidget(2, QFormLayout::FieldRole, ymaxMLabel);
+
+        ymaxMLineEdit = new QLineEdit(setAqua);
+        ymaxMLineEdit->setObjectName(QString::fromUtf8("ymaxMLineEdit"));
+
+        formLayout_7->setWidget(3, QFormLayout::FieldRole, ymaxMLineEdit);
 
 
-        horizontalLayout_5->addLayout(formLayout_3);
+        verticalLayout_20->addLayout(formLayout_7);
 
-        toolBox->addItem(setAqua, QString::fromUtf8("\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \320\260\320\272\320\262\320\260\321\202\320\276\321\200\320\270\320\270"));
+        toolBox->addItem(setAqua, QString::fromUtf8("\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \320\272\320\260\321\200\321\202\321\213"));
         setObject = new QWidget();
         setObject->setObjectName(QString::fromUtf8("setObject"));
-        setObject->setGeometry(QRect(0, 0, 381, 349));
+        setObject->setGeometry(QRect(0, 0, 404, 373));
         verticalLayout_8 = new QVBoxLayout(setObject);
         verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
         maikFolder = new QGroupBox(setObject);
@@ -457,7 +536,7 @@ public:
 #endif
         maikFolder->setPalette(palette2);
         QFont font;
-        font.setPointSize(9);
+        font.setPointSize(11);
         maikFolder->setFont(font);
         horizontalLayout_7 = new QHBoxLayout(maikFolder);
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
@@ -484,7 +563,7 @@ public:
         formLayout = new QFormLayout();
         formLayout->setObjectName(QString::fromUtf8("formLayout"));
         formLayout->setHorizontalSpacing(0);
-        formLayout->setVerticalSpacing(0);
+        formLayout->setVerticalSpacing(6);
         formLayout->setContentsMargins(0, 0, 0, 0);
         xLabel = new QLabel(modem);
         xLabel->setObjectName(QString::fromUtf8("xLabel"));
@@ -492,20 +571,20 @@ public:
 
         formLayout->setWidget(2, QFormLayout::LabelRole, xLabel);
 
-        xLineEdit = new QLineEdit(modem);
-        xLineEdit->setObjectName(QString::fromUtf8("xLineEdit"));
+        xModemLineEdit = new QLineEdit(modem);
+        xModemLineEdit->setObjectName(QString::fromUtf8("xModemLineEdit"));
 
-        formLayout->setWidget(2, QFormLayout::FieldRole, xLineEdit);
+        formLayout->setWidget(2, QFormLayout::FieldRole, xModemLineEdit);
 
-        yLabel = new QLabel(modem);
-        yLabel->setObjectName(QString::fromUtf8("yLabel"));
+        yModemLabel = new QLabel(modem);
+        yModemLabel->setObjectName(QString::fromUtf8("yModemLabel"));
 
-        formLayout->setWidget(3, QFormLayout::LabelRole, yLabel);
+        formLayout->setWidget(3, QFormLayout::LabelRole, yModemLabel);
 
-        yLineEdit = new QLineEdit(modem);
-        yLineEdit->setObjectName(QString::fromUtf8("yLineEdit"));
+        yModemLineEdit = new QLineEdit(modem);
+        yModemLineEdit->setObjectName(QString::fromUtf8("yModemLineEdit"));
 
-        formLayout->setWidget(3, QFormLayout::FieldRole, yLineEdit);
+        formLayout->setWidget(3, QFormLayout::FieldRole, yModemLineEdit);
 
         pbSet = new QPushButton(modem);
         pbSet->setObjectName(QString::fromUtf8("pbSet"));
@@ -523,10 +602,10 @@ public:
 
         formLayout->setWidget(7, QFormLayout::LabelRole, Label);
 
-        numerModemLineEdit = new QLineEdit(modem);
-        numerModemLineEdit->setObjectName(QString::fromUtf8("numerModemLineEdit"));
+        numberDelModemLineEdit = new QLineEdit(modem);
+        numberDelModemLineEdit->setObjectName(QString::fromUtf8("numberDelModemLineEdit"));
 
-        formLayout->setWidget(7, QFormLayout::FieldRole, numerModemLineEdit);
+        formLayout->setWidget(7, QFormLayout::FieldRole, numberDelModemLineEdit);
 
         label_2 = new QLabel(modem);
         label_2->setObjectName(QString::fromUtf8("label_2"));
@@ -548,6 +627,12 @@ public:
         Label_11->setObjectName(QString::fromUtf8("Label_11"));
 
         formLayout->setWidget(4, QFormLayout::LabelRole, Label_11);
+
+        labelSetErrorObject = new QLabel(modem);
+        labelSetErrorObject->setObjectName(QString::fromUtf8("labelSetErrorObject"));
+        labelSetErrorObject->setAlignment(Qt::AlignCenter);
+
+        formLayout->setWidget(1, QFormLayout::FieldRole, labelSetErrorObject);
 
 
         verticalLayout_9->addLayout(formLayout);
@@ -699,15 +784,11 @@ public:
         toolBox->addItem(setObject, QString::fromUtf8("\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\272\320\260 \320\276\320\261\321\212\320\265\320\272\321\202\320\276\320\262"));
         setAlgoritm = new QWidget();
         setAlgoritm->setObjectName(QString::fromUtf8("setAlgoritm"));
-        setAlgoritm->setGeometry(QRect(0, 0, 381, 349));
+        setAlgoritm->setGeometry(QRect(0, 0, 404, 286));
         horizontalLayout_4 = new QHBoxLayout(setAlgoritm);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_2->addItem(verticalSpacer);
-
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         label_3 = new QLabel(setAlgoritm);
@@ -808,32 +889,23 @@ public:
         verticalLayout_6->addWidget(toolBox);
 
         verticalLayout_6->setStretch(0, 1);
-        verticalLayout_6->setStretch(1, 3);
 
         verticalLayout_7->addLayout(verticalLayout_6);
 
         tabWidget->addTab(mission, QString());
         diagn = new QWidget();
         diagn->setObjectName(QString::fromUtf8("diagn"));
-        verticalLayout_18 = new QVBoxLayout(diagn);
-        verticalLayout_18->setObjectName(QString::fromUtf8("verticalLayout_18"));
-        verticalLayout_17 = new QVBoxLayout();
-        verticalLayout_17->setObjectName(QString::fromUtf8("verticalLayout_17"));
+        pushButton_4 = new QPushButton(diagn);
+        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
+        pushButton_4->setGeometry(QRect(120, 10, 142, 26));
         changeMapComboBox = new QComboBox(diagn);
         changeMapComboBox->addItem(QString());
         changeMapComboBox->addItem(QString());
         changeMapComboBox->setObjectName(QString::fromUtf8("changeMapComboBox"));
-
-        verticalLayout_17->addWidget(changeMapComboBox);
-
+        changeMapComboBox->setGeometry(QRect(10, 10, 80, 26));
         log = new QPlainTextEdit(diagn);
         log->setObjectName(QString::fromUtf8("log"));
-
-        verticalLayout_17->addWidget(log);
-
-
-        verticalLayout_18->addLayout(verticalLayout_17);
-
+        log->setGeometry(QRect(10, 42, 256, 192));
         tabWidget->addTab(diagn, QString());
 
         horizontalLayout->addWidget(tabWidget);
@@ -926,7 +998,7 @@ public:
         retranslateUi(Widget);
 
         tabWidget->setCurrentIndex(0);
-        toolBox->setCurrentIndex(2);
+        toolBox->setCurrentIndex(1);
         stackedWidget->setCurrentIndex(0);
         trajectoryStackedWidget->setCurrentIndex(0);
         changeMapStackedWidget->setCurrentIndex(0);
@@ -941,28 +1013,35 @@ public:
         pushButton->setText(QCoreApplication::translate("Widget", "\320\241\321\202\320\260\321\200\321\202", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Widget", "\320\241\321\202\320\276\320\277", nullptr));
         pushButton_3->setText(QCoreApplication::translate("Widget", "\320\236\321\202\320\274\320\265\320\275\320\260", nullptr));
-        pushButton_4->setText(QCoreApplication::translate("Widget", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", nullptr));
         label_6->setText(QCoreApplication::translate("Widget", "\320\236\321\202\320\276\320\261\321\200\320\260\320\266\320\265\320\275\320\270\320\265 \320\264\320\262\320\270\320\266\320\265\320\275\320\270\321\217", nullptr));
         checkBox_2->setText(QCoreApplication::translate("Widget", "\320\241\320\274\320\276\320\264\320\265\320\273\320\270\321\200\320\276\320\262\320\260\320\275\320\275\320\276\320\265", nullptr));
         checkBox_3->setText(QCoreApplication::translate("Widget", "\320\230\320\264\320\265\320\260\320\273\321\214\320\275\320\276\320\265", nullptr));
+        pbUpdate->setText(QCoreApplication::translate("Widget", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
+        pbClear->setText(QCoreApplication::translate("Widget", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214", nullptr));
+        label_7->setText(QCoreApplication::translate("Widget", "\320\220\320\272\320\262\320\260\321\202\320\276\321\200\320\270\321\217", nullptr));
         Label_6->setText(QCoreApplication::translate("Widget", "\320\250\320\270\321\200\320\270\320\275\320\260, \320\274", nullptr));
+        latLineEdit->setText(QString());
         Label_7->setText(QCoreApplication::translate("Widget", "\320\224\320\273\320\270\320\275\320\260, \320\274", nullptr));
         depthLabel->setText(QCoreApplication::translate("Widget", "\320\223\320\273\321\203\320\261\320\270\320\275\320\260, \320\274", nullptr));
         speedLabel->setText(QCoreApplication::translate("Widget", "\320\241\320\272\320\276\321\200\320\276\321\201\321\202\321\214 \320\267\320\262\321\203\320\272\320\260, \320\274/\321\201", nullptr));
-        pbClear->setText(QCoreApplication::translate("Widget", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214", nullptr));
-        pbUpdate->setText(QCoreApplication::translate("Widget", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
-        toolBox->setItemText(toolBox->indexOf(setAqua), QCoreApplication::translate("Widget", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \320\260\320\272\320\262\320\260\321\202\320\276\321\200\320\270\320\270", nullptr));
+        label_8->setText(QCoreApplication::translate("Widget", "\320\232\320\260\321\200\321\202\320\260", nullptr));
+        xminMLabel->setText(QCoreApplication::translate("Widget", "Xmin, m", nullptr));
+        xmaxMLabel->setText(QCoreApplication::translate("Widget", "Xmax, m", nullptr));
+        yminMLabel->setText(QCoreApplication::translate("Widget", "Ymin, m", nullptr));
+        ymaxMLabel->setText(QCoreApplication::translate("Widget", "Ymax, m", nullptr));
+        toolBox->setItemText(toolBox->indexOf(setAqua), QCoreApplication::translate("Widget", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \320\272\320\260\321\200\321\202\321\213", nullptr));
         setNewObjComboBox->setItemText(0, QCoreApplication::translate("Widget", "\320\234\320\276\320\264\320\265\320\274", nullptr));
         setNewObjComboBox->setItemText(1, QCoreApplication::translate("Widget", "\320\220\320\235\320\237\320\220", nullptr));
 
         xLabel->setText(QCoreApplication::translate("Widget", "X", nullptr));
-        yLabel->setText(QCoreApplication::translate("Widget", "Y", nullptr));
+        yModemLabel->setText(QCoreApplication::translate("Widget", "Y", nullptr));
         pbSet->setText(QCoreApplication::translate("Widget", "\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
         label->setText(QCoreApplication::translate("Widget", "\320\232\320\276\320\276\321\200\320\264\320\270\320\275\320\260\321\202\320\260 \320\274\320\276\320\264\320\265\320\274\320\260, \320\274", nullptr));
-        Label->setText(QCoreApplication::translate("Widget", "\320\235\320\276\320\274\320\265\321\200", nullptr));
+        Label->setText(QCoreApplication::translate("Widget", "\320\220\320\264\321\200\320\265\321\201", nullptr));
         label_2->setText(QCoreApplication::translate("Widget", "\320\243\320\264\320\260\320\273\320\265\320\275\320\270\320\265 \320\274\320\276\320\264\320\265\320\274\320\260, \320\274", nullptr));
         pbDel->setText(QCoreApplication::translate("Widget", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
-        Label_11->setText(QCoreApplication::translate("Widget", "\320\235\320\276\320\274\320\265\321\200", nullptr));
+        Label_11->setText(QCoreApplication::translate("Widget", "\320\220\320\264\321\200\320\265\321\201", nullptr));
+        labelSetErrorObject->setText(QCoreApplication::translate("Widget", "TextLabel", nullptr));
         xAUVLabel->setText(QCoreApplication::translate("Widget", "X", nullptr));
         yAUVLabel->setText(QCoreApplication::translate("Widget", "Y", nullptr));
         psiLabel->setText(QCoreApplication::translate("Widget", "\320\232\321\203\321\200\321\201", nullptr));
@@ -989,6 +1068,7 @@ public:
         checkBox->setText(QCoreApplication::translate("Widget", "\320\223\320\276\321\202\320\276\320\262\320\275\320\276\321\201\321\202\321\214 \320\272 \320\274\320\276\320\264\320\265\320\273\320\270\321\200\320\276\320\262\320\260\320\275\320\270\321\216", nullptr));
         toolBox->setItemText(toolBox->indexOf(setAlgoritm), QCoreApplication::translate("Widget", "\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \320\260\320\273\320\263\320\276\321\200\320\270\321\202\320\274\320\260", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(mission), QCoreApplication::translate("Widget", "\320\234\320\270\321\201\321\201\320\270\321\217", nullptr));
+        pushButton_4->setText(QCoreApplication::translate("Widget", "\320\241\320\276\321\205\321\200\320\260\320\275\320\270\321\202\321\214", nullptr));
         changeMapComboBox->setItemText(0, QCoreApplication::translate("Widget", "\320\232\320\260\321\200\321\202\320\260", nullptr));
         changeMapComboBox->setItemText(1, QCoreApplication::translate("Widget", "\320\223\321\200\320\260\321\204\320\270\320\272", nullptr));
 

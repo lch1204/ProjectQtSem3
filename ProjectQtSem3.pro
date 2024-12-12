@@ -9,12 +9,14 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    gansdata.cpp \
     graphform.cpp \
     main.cpp \
     mapgidroform.cpp \
     widget.cpp
 
 HEADERS += \
+    gansdata.h \
     graphform.h \
     mapgidroform.h \
     widget.h

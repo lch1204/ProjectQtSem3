@@ -1,109 +1,145 @@
 #include "mapgidroform.h"
 
-
 MapGidroForm::MapGidroForm(QWidget *parent)
     : QWidget(parent)
 {
     setupUi(this);
-    chart = new QChart(); // Создаем объект QChart для отображения графика.
-    chartView = new QChartView(this); // Создаем виджет для отображения графика и устанавливаем его родителем текущий виджет.
-    hLayout = new QHBoxLayout(); // Создаем горизонтальный слой для размещения chartView.
-    hLayout->addWidget(chartView); // Добавляем виджет графика в слой.
-    setLayout(hLayout); // Устанавливаем слой как основной для текущего виджета.
-    chartView->setChart(chart); // Связываем объект графика с виджетом отображения.
 
-    xAxis = new QValueAxis(chart); // Создаем ось X для графика.
-    yAxis = new QValueAxis(chart); // Создаем ось Y для графика.
+    aquamarine = QPen(QColor("#20B2AA"), 2,  Qt::SolidLine);
 
+    // Инициализация графика и виджета
+    chart = new QChart();
+    chartView = new QChartView(this);
+    QHBoxLayout *hLayout = new QHBoxLayout(this);
+    hLayout->addWidget(chartView);
+    setLayout(hLayout);
+    chartView->setChart(chart);
 
-    // Настройка sizePolicy для растягивания графика на все окно:
-    QSizePolicy policy(QSizePolicy::Expanding, QSizePolicy::Expanding); // Политика расширения по обеим осям.
-    chartView->setSizePolicy(policy); // Применяем политику к виджету отображения графика.
+    // Настройка осей
+    xAxis = new QValueAxis(chart);
+    yAxis = new QValueAxis(chart);
+    xAxis->setRange(-100, 100);
+    xAxis->setTickCount(10);
+    xAxis->setTitleText("Y, m");
+    yAxis->setRange(-100, 100);
+    yAxis->setTickCount(10);
+    yAxis->setTitleText("X, m");
 
-    trajectoryAUV = new QSplineSeries(chart); // Создаем сплайн-серию для отображения траектории AUV.
-    auvPosition = new QScatterSeries(chart); // Создаем серию точек для отображения текущего положения AUV.
+    chart->addAxis(xAxis, Qt::AlignBottom);
+    chart->addAxis(yAxis, Qt::AlignLeft);
 
-    chart->addSeries(trajectoryAUV); // Добавляем серию с траекторией на график.
-    chart->addSeries(auvPosition); // Добавляем серию с положением AUV на график.
+    // Серии
+    trajectoryAUV = new QSplineSeries(chart);
+    auvPosition = new QScatterSeries(chart);
+    chart->addSeries(trajectoryAUV);
+    chart->addSeries(auvPosition);
+    trajectoryAUV->attachAxis(xAxis);
+    trajectoryAUV->attachAxis(yAxis);
+    auvPosition->attachAxis(xAxis);
+    auvPosition->attachAxis(yAxis);
 
-    xAxis->setRange(0, 100); // Устанавливаем диапазон значений для оси X.
-    xAxis->setTickCount(10); // Устанавливаем количество меток на оси X.
-    xAxis->setTitleText("X, m"); // Устанавливаем заголовок оси X.
+    // Настройка внешнего вида
+    chart->setBackgroundBrush(QBrush(Qt::white));
+    chart->setPlotAreaBackgroundVisible(true);
+    chart->layout()->setContentsMargins(0, 0, 0, 0);
+    chart->setMargins(QMargins(0, 0, 0, 0));
+    chartView->setInteractive(true);
+    chartView->setDragMode(QGraphicsView::ScrollHandDrag);
+    chartView->setRubberBand(QChartView::RectangleRubberBand);
 
-    yAxis->setRange(0, 100); // Устанавливаем диапазон значений для оси Y.
-    yAxis->setTickCount(10); // Устанавливаем количество меток на оси Y.
-    yAxis->setTitleText("Y, m"); // Устанавливаем заголовок оси Y.
-
-    chart->addAxis(xAxis, Qt::AlignLeft); // Привязываем ось X к левой стороне графика.
-    chart->addAxis(yAxis, Qt::AlignBottom); // Привязываем ось Y к нижней стороне графика.
-
-    trajectoryAUV->attachAxis(xAxis); // Привязываем серию траектории к оси X.
-    trajectoryAUV->attachAxis(yAxis); // Привязываем серию траектории к оси Y.
-    auvPosition->attachAxis(xAxis); // Привязываем серию с положением AUV к оси X.
-    auvPosition->attachAxis(yAxis); // Привязываем серию с положением AUV к оси Y.
-
-    //    trajectoryAUV->append(0, 0); // Пример добавления точек в серию траектории.
-    //    trajectoryAUV->append(10, 20);
-    //    trajectoryAUV->append(30, 50);
-    //    auvPosition->append(30, 50);
-
-
-    chart->setBackgroundBrush(QBrush(Qt::white)); // Устанавливаем белый фон для графика.
-    // chart->setBackgroundPen(QPen(Qt::black, 2)); // Устанавливаем черную обводку шириной 2 пикселя.
-    // chart->setPlotAreaBackgroundBrush(QBrush(Qt::lightGray)); // (Опционально) Задаем фон внутри области построения графика.
-    chart->setPlotAreaBackgroundVisible(true); // (Опционально) Включаем видимость фона внутри области построения.
-
-    chart->zoomOut();
-    chart->zoom(0.5);
-
-    QRectF currentPlotArea = chart->plotArea(); // Получаем текущую область построения.
-    QRectF newPlotArea(currentPlotArea.x(), currentPlotArea.y(), currentPlotArea.width() * 1.5, currentPlotArea.height() * 1.5);
-    chart->setPlotArea(newPlotArea); // Увеличиваем размеры области.
-
-
-    chart->layout()->setContentsMargins(0, 0, 0, 0); // Убираем отступы вокруг графика, чтобы занять все пространство.
-    chart->setMargins(QMargins(0,0,0,0));
-    chartView->setInteractive(true); // Включаем интерактивность (масштабирование и перемещение).
-    chartView->setDragMode(QGraphicsView::ScrollHandDrag); // Устанавливаем режим перемещения мышью.
-
-    chartView->setMinimumSize(0, 0); // Устанавливаем минимальные размеры виджета графика.
-    chartView->setRubberBand(QChartView::RectangleRubberBand); // Добавляем возможность выделения области графика.
-
-    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    // Уменьшаем шрифт заголовка осей
     QFont axisFont = xAxis->titleFont();
-    axisFont.setPointSize(8); // Устанавливаем размер шрифта меньше.
+    axisFont.setPointSize(8);
     xAxis->setTitleFont(axisFont);
     yAxis->setTitleFont(axisFont);
+    xAxis->setLabelsFont(QFont("Arial", 8));
+    yAxis->setLabelsFont(QFont("Arial", 8));
+    chart->legend()->hide();
 
-    // Уменьшаем шрифт меток на осях
-    xAxis->setLabelsFont(QFont("Arial", 8)); // Устанавливаем шрифт для меток оси X.
-    yAxis->setLabelsFont(QFont("Arial", 8)); // Устанавливаем шрифт для меток оси Y.
+    // Линии для нулевых осей
+    zeroAxisX = new QGraphicsLineItem();
+    zeroAxisY = new QGraphicsLineItem();
+    zeroAxisX->setPen(aquamarine);
+    zeroAxisY->setPen(aquamarine);
+    chart->scene()->addItem(zeroAxisX);
+    chart->scene()->addItem(zeroAxisY);
 
-    // // Уменьшаем шрифт заголовка графика
-    // QFont chartTitleFont = chart->titleFont();
-    // chartTitleFont.setPointSize(10); // Уменьшаем размер шрифта.
-    // chart->setTitleFont(chartTitleFont);
+    // // Обновление нулевых осей при изменении области построения
+    connect(chart, &QChart::plotAreaChanged, this, [this]() {
+        QRectF plotArea = chart->plotArea();
+        zeroAxisX->setLine(plotArea.left(), plotArea.center().y(), plotArea.right(), plotArea.center().y());
+        zeroAxisY->setLine(plotArea.center().x(), plotArea.top(), plotArea.center().x(), plotArea.bottom());
+    });
 
-    // // Уменьшаем шрифт легенды (если она есть)
-    // QFont legendFont = chart->legend()->font();
-    // legendFont.setPointSize(8);
-    // chart->legend()->setFont(legendFont);
+    connect(xAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
+    connect(yAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
 
     QRectF plotArea = chart->plotArea(); // Получаем текущую область построения.
     chart->setPlotArea(QRectF(plotArea.x(), plotArea.y(), plotArea.width(), plotArea.height())); // Уменьшаем отступы.
 
-    // xAxis->setLabelFormat("%d"); // Устанавливаем простой формат меток.
-    // yAxis->setLabelFormat("%d");
+    upperSeries = new QLineSeries();
+    lowerSeries = new QLineSeries();
+    areaRect = new QAreaSeries();
 
-    xAxis->setTickCount(10); // Уменьшаем количество меток на осях.
-    yAxis->setTickCount(10);
+    areaRect->setLowerSeries(lowerSeries);
+    areaRect->setUpperSeries(upperSeries);
+    chart->addSeries(areaRect);
 
-    chart->legend()->hide();
+    areaRect->attachAxis(xAxis);
+    areaRect->attachAxis(yAxis);
+
+    // Первичное обновление осей
+    updateZeroAxes();
+
 }
 
 MapGidroForm::~MapGidroForm()
 {
 
+}
+
+void MapGidroForm::setAuqa(quint8 heightX, quint8 widthY)
+{
+    // if (areaRect)
+    // chart->removeSeries(areaRect);
+
+    upperSeries->clear();
+    lowerSeries->clear();
+    qDebug() << "widthY" << widthY;
+    qDebug() << "heightX" << heightX;
+    upperSeries->append(0,widthY);
+    upperSeries->append(heightX,widthY);
+    lowerSeries->append(0,0);
+    lowerSeries->append(heightX,0);
+
+    areaRect->setPen(aquamarine); // Синяя рамка
+    areaRect->setBrush(QBrush(QColor(32, 178, 170, 50))); // Полупрозрачная заливка
+}
+
+void MapGidroForm::updateZeroAxes()
+{
+    // Получаем текущие диапазоны осей
+    double xMin = xAxis->min();
+    double xMax = xAxis->max();
+    double yMin = yAxis->min();
+    double yMax = yAxis->max();
+
+    QRectF plotArea = chart->plotArea();
+
+    // Привязываем нулевую линию оси X к масштабу
+    if (yMin <= 0 && yMax >= 0) {
+        double yZeroPos = plotArea.bottom() - (plotArea.height() * (0 - yMin) / (yMax - yMin));
+        zeroAxisX->setLine(plotArea.left(), yZeroPos, plotArea.right(), yZeroPos);
+        zeroAxisX->setVisible(true);
+    } else {
+        zeroAxisX->setVisible(false); // Скрываем линию, если 0 не входит в диапазон оси Y
+    }
+
+    // Привязываем нулевую линию оси Y к масштабу
+    if (xMin <= 0 && xMax >= 0) {
+        double xZeroPos = plotArea.left() + (plotArea.width() * (0 - xMin) / (xMax - xMin));
+        zeroAxisY->setLine(xZeroPos, plotArea.top(), xZeroPos, plotArea.bottom());
+        zeroAxisY->setVisible(true);
+    } else {
+        zeroAxisY->setVisible(false); // Скрываем линию, если 0 не входит в диапазон оси X
+    }
 }

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "ui_widget.h"
+#include "gansdata.h"
 
 
 class Widget : public QWidget, private Ui::Widget
@@ -12,6 +13,7 @@ class Widget : public QWidget, private Ui::Widget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
+    GansData *data = nullptr;
 
 private slots:
     void on_setNewObjComboBox_textActivated(const QString &arg1);

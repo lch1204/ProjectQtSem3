@@ -8,6 +8,24 @@ Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
     setupUi(this);
+    data = new GansData();
+
+    latLineEdit->setText("20");
+    longLineEdit->setText("40");
+    depthLineEdit->setText("10");
+    speedLineEdit->setText("1500");
+
+    xminMLineEdit->setText("-50");
+    xmaxMLineEdit->setText("50");
+    yminMLineEdit->setText("-50");
+    ymaxMLineEdit->setText("50");
+
+    xModemLineEdit->setText("0");
+    yModemLineEdit->setText("0");
+    numberModemLineEdit->setText("0");
+    numberDelModemLineEdit->setText("0");
+
+    on_pbUpdate_clicked();
 
 }
 
@@ -73,10 +91,24 @@ void Widget::on_changeMapComboBox_textActivated(const QString &arg1)
 
 void Widget::on_pbUpdate_clicked()
 {
-    QString lat = latLineEdit->text();
-    QString longg = longLineEdit->text();
-    mapPage->xAxis->setRange(0,lat.toInt());
-    mapPage->yAxis->setRange(0,longg.toInt());
+    qDebug() << "clicked update";
+    QString xMin = xminMLineEdit->text();
+    QString xMax = xmaxMLineEdit->text();
+    QString yMin = yminMLineEdit->text();
+    QString yMax = ymaxMLineEdit->text();
+
+    mapPage->xAxis->setRange(xMin.toInt(),xMax.toInt());
+    mapPage->yAxis->setRange(yMin.toInt(),yMax.toInt());
+
+    QString height = latLineEdit->text();
+    QString width = longLineEdit->text();
+    data->setAuqa(height.toUInt(), width.toUInt());
+    mapPage->setAuqa(height.toUInt(), width.toUInt());
+}
+
+
+void Widget::on_pbSet_clicked()
+{
 
 }
 
