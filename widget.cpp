@@ -10,23 +10,28 @@ Widget::Widget(QWidget *parent)
     setupUi(this);
     data = new GansData();
 
-    latLineEdit->setText("20");
+    latLineEdit->setText("40");
     longLineEdit->setText("40");
     depthLineEdit->setText("10");
     speedLineEdit->setText("1500");
 
-    xminMLineEdit->setText("-50");
-    xmaxMLineEdit->setText("50");
-    yminMLineEdit->setText("-50");
-    ymaxMLineEdit->setText("50");
+    xminMLineEdit->setText("0");
+    xmaxMLineEdit->setText("40");
+    yminMLineEdit->setText("0");
+    ymaxMLineEdit->setText("40");
 
     xModemLineEdit->setText("0");
     yModemLineEdit->setText("0");
     numberModemLineEdit->setText("0");
-    numberDelModemLineEdit->setText("0");
+    numberDelModemLineEdit->setText("1");
+
+    xAUVLineEdit->setText("0");
+    yAUVLineEdit->setText("40");
+    psiLineEdit->setText("90");
+    distGALSLineEdit->setText("1");
 
     on_pbUpdate_clicked();
-
+    connect(data, &GansData::dataModemDel, this, &Widget::delModemMap);
 }
 
 Widget::~Widget()
@@ -104,11 +109,87 @@ void Widget::on_pbUpdate_clicked()
     QString width = longLineEdit->text();
     data->setAuqa(height.toUInt(), width.toUInt());
     mapPage->setAuqa(height.toUInt(), width.toUInt());
+    mapPage->updateZeroAxes();
 }
 
 
 void Widget::on_pbSet_clicked()
 {
+    QString x = xModemLineEdit->text();
+    QString y = yModemLineEdit->text();
+    QString address = numberModemLineEdit->text();
+    if (x.toInt()>=0 and y.toInt()>=0)
+    {
+        bool addMod = data->addModem(x.toInt(), y.toInt(), address.toInt());
+        if (addMod)
+        {
+            log->appendPlainText("addModem: x = " + x + "; y = " + y + "; address = " + address +"; number = " + QString::number(data->numberFix));
+            mapPage->addMarker(y.toInt(), x.toInt());
+            labelErrorSetModem->setText("Установлено!");
+            labelErrorDelModem->setText("");
+            labelErrorSetModem->setStyleSheet("color: black;");
+            return;
+        }
+        else
+        {
+            labelErrorSetModem->setText("Дурак, дурак! Подумай ещё раз");
+            labelErrorDelModem->setText("");
+            labelErrorSetModem->setStyleSheet("color: red;");
+            return;
+        }
+    }
+    else
+    {
+        labelErrorSetModem->setText("Дурак, дурак! Подумай ещё раз");
+        labelErrorDelModem->setText("");
+        labelErrorSetModem->setStyleSheet("color: red;");
+        return;
+    }
 
+}
+
+
+void Widget::on_pbDel_clicked()
+{
+    QString number = numberDelModemLineEdit->text();
+    bool delMod = data->delModemVector(number.toInt());
+    if (delMod)
+    {
+        log->appendPlainText("delModem: number = " + number);
+        labelErrorDelModem->setText("Удалено!");
+        labelErrorSetModem->setText("");
+        labelErrorDelModem->setStyleSheet("color: black;");
+    }
+    else
+    {
+        labelErrorSetModem->setText("");
+        labelErrorDelModem->setText("Ну совсем дурак! Подумай ещё раз");
+        labelErrorDelModem->setStyleSheet("color: red;");
+    }
+}
+
+void Widget::delModemMap(quint8 x, quint8 y)
+{
+    mapPage->delMarker(y,x);
+}
+
+
+
+
+void Widget::on_pbSetAUV_toggled(bool checked)
+{
+    if (checked)
+    {
+        QString x = xAUVLineEdit->text();
+        QString y = yAUVLineEdit->text();
+
+        qDebug() << "checked" << checked;
+        mapPage->addAUV(y.toInt(),x.toInt());
+    }
+    else
+    {
+        qDebug() << "checked" << checked;
+        mapPage->delAUV();
+    }
 }
 

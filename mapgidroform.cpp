@@ -18,10 +18,10 @@ MapGidroForm::MapGidroForm(QWidget *parent)
     // Настройка осей
     xAxis = new QValueAxis(chart);
     yAxis = new QValueAxis(chart);
-    xAxis->setRange(-100, 100);
+    xAxis->setRange(-0, 100);
     xAxis->setTickCount(10);
     xAxis->setTitleText("Y, m");
-    yAxis->setRange(-100, 100);
+    yAxis->setRange(-0, 100);
     yAxis->setTickCount(10);
     yAxis->setTitleText("X, m");
 
@@ -62,18 +62,14 @@ MapGidroForm::MapGidroForm(QWidget *parent)
     zeroAxisY->setPen(aquamarine);
     chart->scene()->addItem(zeroAxisX);
     chart->scene()->addItem(zeroAxisY);
+    zeroAxisX->setZValue(0);
+    zeroAxisY->setZValue(1);
 
-    // // Обновление нулевых осей при изменении области построения
-    connect(chart, &QChart::plotAreaChanged, this, [this]() {
-        QRectF plotArea = chart->plotArea();
-        zeroAxisX->setLine(plotArea.left(), plotArea.center().y(), plotArea.right(), plotArea.center().y());
-        zeroAxisY->setLine(plotArea.center().x(), plotArea.top(), plotArea.center().x(), plotArea.bottom());
-    });
+    QRectF plotArea = chart->plotArea();
 
     connect(xAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
     connect(yAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
 
-    QRectF plotArea = chart->plotArea(); // Получаем текущую область построения.
     chart->setPlotArea(QRectF(plotArea.x(), plotArea.y(), plotArea.width(), plotArea.height())); // Уменьшаем отступы.
 
     upperSeries = new QLineSeries();
@@ -87,9 +83,24 @@ MapGidroForm::MapGidroForm(QWidget *parent)
     areaRect->attachAxis(xAxis);
     areaRect->attachAxis(yAxis);
 
-    // Первичное обновление осей
     updateZeroAxes();
 
+    modemPosition = new QScatterSeries(chart);
+
+
+    chart->addSeries(modemPosition);
+
+    modemPosition->attachAxis(xAxis);
+    modemPosition->attachAxis(yAxis);
+
+    // Устанавливаем изображение как маркер
+    modemPosition->setMarkerShape(QScatterSeries::MarkerShapeCircle); // Временная форма
+    modemPosition->setMarkerSize(20); // Размер маркера
+    modemPosition->setBrush(QBrush(QColorConstants::Cyan)); // Устанавливаем маркер
+
+    auvPosition->setMarkerShape(QScatterSeries::MarkerShapeCircle);
+    auvPosition->setMarkerSize(25);
+    auvPosition->setColor(QColorConstants::Blue);
 }
 
 MapGidroForm::~MapGidroForm()
@@ -113,6 +124,26 @@ void MapGidroForm::setAuqa(quint8 heightX, quint8 widthY)
 
     areaRect->setPen(aquamarine); // Синяя рамка
     areaRect->setBrush(QBrush(QColor(32, 178, 170, 50))); // Полупрозрачная заливка
+}
+
+void MapGidroForm::addMarker(quint8 x, quint8 y)
+{
+    modemPosition->append(x,y);
+}
+
+void MapGidroForm::delMarker(quint8 x, quint8 y)
+{
+    modemPosition->remove(x,y);
+}
+
+void MapGidroForm::addAUV(quint8 x, quint8 y)
+{
+    auvPosition->append(x,y);
+}
+
+void MapGidroForm::delAUV()
+{
+    auvPosition->clear();
 }
 
 void MapGidroForm::updateZeroAxes()

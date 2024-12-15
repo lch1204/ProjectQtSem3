@@ -5,6 +5,9 @@
 #include <QtCharts>
 #include <QPen>
 #include <QColor>
+#include <QSvgRenderer>
+#include <QPainter>
+#include <QFile>
 #include "ui_mapgidroform.h"
 
 using namespace QtCharts;
@@ -26,7 +29,6 @@ public:
     QValueAxis *xAxis = nullptr;
     QValueAxis *yAxis = nullptr;
     QSplineSeries *trajectoryAUV = nullptr;
-    QScatterSeries *auvPosition = nullptr;
 
     QLineSeries *upperSeries = nullptr;
     QLineSeries *lowerSeries = nullptr;
@@ -35,12 +37,26 @@ public:
     QGraphicsLineItem *zeroAxisX = nullptr;
     QGraphicsLineItem *zeroAxisY = nullptr;
 
+    QScatterSeries *modemPosition = nullptr;
+    QScatterSeries *auvPosition = nullptr;
+
     void setAuqa(quint8 heightX,quint8 widthY);
+    void addMarker(quint8 x,quint8 y);
+    void delMarker(quint8 x,quint8 y);
+
+    void addAUV(quint8 x,quint8 y);
+    void delAUV();
 
     QPen aquamarine; // Фиолетовый цвет (RGB: 128, 64, 255)
 
-private:
     void updateZeroAxes();
+
+    void setCustomMarker(const QString &filePath) {
+        QPixmap pixmap(filePath);
+        m_markerPixmap = pixmap.scaled(25, 25, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    }
+
+    QPixmap m_markerPixmap;
 };
 
 #endif // MAPGIDROFORM_H

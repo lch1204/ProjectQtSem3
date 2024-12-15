@@ -85,19 +85,20 @@ public:
     QWidget *modem;
     QVBoxLayout *verticalLayout_9;
     QFormLayout *formLayout;
+    QLabel *label;
     QLabel *xLabel;
     QLineEdit *xModemLineEdit;
     QLabel *yModemLabel;
     QLineEdit *yModemLineEdit;
+    QLabel *Label_11;
+    QLineEdit *numberModemLineEdit;
     QPushButton *pbSet;
-    QLabel *label;
+    QLabel *labelErrorSetModem;
+    QLabel *label_2;
     QLabel *Label;
     QLineEdit *numberDelModemLineEdit;
-    QLabel *label_2;
     QPushButton *pbDel;
-    QLineEdit *numberModemLineEdit;
-    QLabel *Label_11;
-    QLabel *labelSetErrorObject;
+    QLabel *labelErrorDelModem;
     QWidget *auv;
     QVBoxLayout *verticalLayout_13;
     QVBoxLayout *verticalLayout_11;
@@ -164,7 +165,7 @@ public:
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QString::fromUtf8("Widget"));
-        Widget->resize(1044, 672);
+        Widget->resize(1044, 788);
         QPalette palette;
         QBrush brush(QColor(0, 0, 0, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -474,7 +475,7 @@ public:
         toolBox->addItem(setAqua, QString::fromUtf8("\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \320\272\320\260\321\200\321\202\321\213"));
         setObject = new QWidget();
         setObject->setObjectName(QString::fromUtf8("setObject"));
-        setObject->setGeometry(QRect(0, 0, 404, 373));
+        setObject->setGeometry(QRect(0, 0, 404, 381));
         verticalLayout_8 = new QVBoxLayout(setObject);
         verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
         maikFolder = new QGroupBox(setObject);
@@ -565,37 +566,68 @@ public:
         formLayout->setHorizontalSpacing(0);
         formLayout->setVerticalSpacing(6);
         formLayout->setContentsMargins(0, 0, 0, 0);
-        xLabel = new QLabel(modem);
-        xLabel->setObjectName(QString::fromUtf8("xLabel"));
-        xLabel->setAlignment(Qt::AlignCenter);
-
-        formLayout->setWidget(2, QFormLayout::LabelRole, xLabel);
-
-        xModemLineEdit = new QLineEdit(modem);
-        xModemLineEdit->setObjectName(QString::fromUtf8("xModemLineEdit"));
-
-        formLayout->setWidget(2, QFormLayout::FieldRole, xModemLineEdit);
-
-        yModemLabel = new QLabel(modem);
-        yModemLabel->setObjectName(QString::fromUtf8("yModemLabel"));
-
-        formLayout->setWidget(3, QFormLayout::LabelRole, yModemLabel);
-
-        yModemLineEdit = new QLineEdit(modem);
-        yModemLineEdit->setObjectName(QString::fromUtf8("yModemLineEdit"));
-
-        formLayout->setWidget(3, QFormLayout::FieldRole, yModemLineEdit);
-
-        pbSet = new QPushButton(modem);
-        pbSet->setObjectName(QString::fromUtf8("pbSet"));
-
-        formLayout->setWidget(5, QFormLayout::FieldRole, pbSet);
-
         label = new QLabel(modem);
         label->setObjectName(QString::fromUtf8("label"));
         label->setAlignment(Qt::AlignCenter);
 
         formLayout->setWidget(0, QFormLayout::FieldRole, label);
+
+        xLabel = new QLabel(modem);
+        xLabel->setObjectName(QString::fromUtf8("xLabel"));
+        xLabel->setAlignment(Qt::AlignCenter);
+
+        formLayout->setWidget(1, QFormLayout::LabelRole, xLabel);
+
+        xModemLineEdit = new QLineEdit(modem);
+        xModemLineEdit->setObjectName(QString::fromUtf8("xModemLineEdit"));
+
+        formLayout->setWidget(1, QFormLayout::FieldRole, xModemLineEdit);
+
+        yModemLabel = new QLabel(modem);
+        yModemLabel->setObjectName(QString::fromUtf8("yModemLabel"));
+
+        formLayout->setWidget(2, QFormLayout::LabelRole, yModemLabel);
+
+        yModemLineEdit = new QLineEdit(modem);
+        yModemLineEdit->setObjectName(QString::fromUtf8("yModemLineEdit"));
+
+        formLayout->setWidget(2, QFormLayout::FieldRole, yModemLineEdit);
+
+        Label_11 = new QLabel(modem);
+        Label_11->setObjectName(QString::fromUtf8("Label_11"));
+
+        formLayout->setWidget(3, QFormLayout::LabelRole, Label_11);
+
+        numberModemLineEdit = new QLineEdit(modem);
+        numberModemLineEdit->setObjectName(QString::fromUtf8("numberModemLineEdit"));
+
+        formLayout->setWidget(3, QFormLayout::FieldRole, numberModemLineEdit);
+
+        pbSet = new QPushButton(modem);
+        pbSet->setObjectName(QString::fromUtf8("pbSet"));
+
+        formLayout->setWidget(4, QFormLayout::FieldRole, pbSet);
+
+        labelErrorSetModem = new QLabel(modem);
+        labelErrorSetModem->setObjectName(QString::fromUtf8("labelErrorSetModem"));
+        QFont font1;
+        font1.setPointSize(11);
+        font1.setBold(false);
+        font1.setItalic(true);
+        font1.setUnderline(false);
+        font1.setStrikeOut(false);
+        font1.setKerning(true);
+        labelErrorSetModem->setFont(font1);
+        labelErrorSetModem->setMouseTracking(false);
+        labelErrorSetModem->setAlignment(Qt::AlignCenter);
+
+        formLayout->setWidget(5, QFormLayout::FieldRole, labelErrorSetModem);
+
+        label_2 = new QLabel(modem);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setAlignment(Qt::AlignCenter);
+
+        formLayout->setWidget(6, QFormLayout::FieldRole, label_2);
 
         Label = new QLabel(modem);
         Label->setObjectName(QString::fromUtf8("Label"));
@@ -607,32 +639,20 @@ public:
 
         formLayout->setWidget(7, QFormLayout::FieldRole, numberDelModemLineEdit);
 
-        label_2 = new QLabel(modem);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setAlignment(Qt::AlignCenter);
-
-        formLayout->setWidget(6, QFormLayout::FieldRole, label_2);
-
         pbDel = new QPushButton(modem);
         pbDel->setObjectName(QString::fromUtf8("pbDel"));
 
         formLayout->setWidget(8, QFormLayout::FieldRole, pbDel);
 
-        numberModemLineEdit = new QLineEdit(modem);
-        numberModemLineEdit->setObjectName(QString::fromUtf8("numberModemLineEdit"));
+        labelErrorDelModem = new QLabel(modem);
+        labelErrorDelModem->setObjectName(QString::fromUtf8("labelErrorDelModem"));
+        QFont font2;
+        font2.setPointSize(11);
+        font2.setItalic(true);
+        labelErrorDelModem->setFont(font2);
+        labelErrorDelModem->setAlignment(Qt::AlignCenter);
 
-        formLayout->setWidget(4, QFormLayout::FieldRole, numberModemLineEdit);
-
-        Label_11 = new QLabel(modem);
-        Label_11->setObjectName(QString::fromUtf8("Label_11"));
-
-        formLayout->setWidget(4, QFormLayout::LabelRole, Label_11);
-
-        labelSetErrorObject = new QLabel(modem);
-        labelSetErrorObject->setObjectName(QString::fromUtf8("labelSetErrorObject"));
-        labelSetErrorObject->setAlignment(Qt::AlignCenter);
-
-        formLayout->setWidget(1, QFormLayout::FieldRole, labelSetErrorObject);
+        formLayout->setWidget(9, QFormLayout::FieldRole, labelErrorDelModem);
 
 
         verticalLayout_9->addLayout(formLayout);
@@ -678,6 +698,7 @@ public:
 
         pbSetAUV = new QPushButton(auv);
         pbSetAUV->setObjectName(QString::fromUtf8("pbSetAUV"));
+        pbSetAUV->setCheckable(true);
 
         formLayout_4->setWidget(3, QFormLayout::FieldRole, pbSetAUV);
 
@@ -999,7 +1020,7 @@ public:
 
         tabWidget->setCurrentIndex(0);
         toolBox->setCurrentIndex(1);
-        stackedWidget->setCurrentIndex(0);
+        stackedWidget->setCurrentIndex(1);
         trajectoryStackedWidget->setCurrentIndex(0);
         changeMapStackedWidget->setCurrentIndex(0);
 
@@ -1033,15 +1054,16 @@ public:
         setNewObjComboBox->setItemText(0, QCoreApplication::translate("Widget", "\320\234\320\276\320\264\320\265\320\274", nullptr));
         setNewObjComboBox->setItemText(1, QCoreApplication::translate("Widget", "\320\220\320\235\320\237\320\220", nullptr));
 
+        label->setText(QCoreApplication::translate("Widget", "\320\232\320\276\320\276\321\200\320\264\320\270\320\275\320\260\321\202\320\260 \320\274\320\276\320\264\320\265\320\274\320\260, \320\274", nullptr));
         xLabel->setText(QCoreApplication::translate("Widget", "X", nullptr));
         yModemLabel->setText(QCoreApplication::translate("Widget", "Y", nullptr));
-        pbSet->setText(QCoreApplication::translate("Widget", "\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
-        label->setText(QCoreApplication::translate("Widget", "\320\232\320\276\320\276\321\200\320\264\320\270\320\275\320\260\321\202\320\260 \320\274\320\276\320\264\320\265\320\274\320\260, \320\274", nullptr));
-        Label->setText(QCoreApplication::translate("Widget", "\320\220\320\264\321\200\320\265\321\201", nullptr));
-        label_2->setText(QCoreApplication::translate("Widget", "\320\243\320\264\320\260\320\273\320\265\320\275\320\270\320\265 \320\274\320\276\320\264\320\265\320\274\320\260, \320\274", nullptr));
-        pbDel->setText(QCoreApplication::translate("Widget", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
         Label_11->setText(QCoreApplication::translate("Widget", "\320\220\320\264\321\200\320\265\321\201", nullptr));
-        labelSetErrorObject->setText(QCoreApplication::translate("Widget", "TextLabel", nullptr));
+        pbSet->setText(QCoreApplication::translate("Widget", "\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
+        labelErrorSetModem->setText(QString());
+        label_2->setText(QCoreApplication::translate("Widget", "\320\243\320\264\320\260\320\273\320\265\320\275\320\270\320\265 \320\274\320\276\320\264\320\265\320\274\320\260, \320\274", nullptr));
+        Label->setText(QCoreApplication::translate("Widget", "\320\235\320\276\320\274\320\265\321\200", nullptr));
+        pbDel->setText(QCoreApplication::translate("Widget", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
+        labelErrorDelModem->setText(QString());
         xAUVLabel->setText(QCoreApplication::translate("Widget", "X", nullptr));
         yAUVLabel->setText(QCoreApplication::translate("Widget", "Y", nullptr));
         psiLabel->setText(QCoreApplication::translate("Widget", "\320\232\321\203\321\200\321\201", nullptr));

@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Widget_t {
-    QByteArrayData data[7];
-    char stringdata0[139];
+    QByteArrayData data[14];
+    char stringdata0[217];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,13 +38,22 @@ QT_MOC_LITERAL(2, 42, 0), // ""
 QT_MOC_LITERAL(3, 43, 4), // "arg1"
 QT_MOC_LITERAL(4, 48, 35), // "on_trajectoryComboBox_textAct..."
 QT_MOC_LITERAL(5, 84, 34), // "on_changeMapComboBox_textActi..."
-QT_MOC_LITERAL(6, 119, 19) // "on_pbUpdate_clicked"
+QT_MOC_LITERAL(6, 119, 19), // "on_pbUpdate_clicked"
+QT_MOC_LITERAL(7, 139, 16), // "on_pbSet_clicked"
+QT_MOC_LITERAL(8, 156, 16), // "on_pbDel_clicked"
+QT_MOC_LITERAL(9, 173, 11), // "delModemMap"
+QT_MOC_LITERAL(10, 185, 1), // "x"
+QT_MOC_LITERAL(11, 187, 1), // "y"
+QT_MOC_LITERAL(12, 189, 19), // "on_pbSetAUV_toggled"
+QT_MOC_LITERAL(13, 209, 7) // "checked"
 
     },
     "Widget\0on_setNewObjComboBox_textActivated\0"
     "\0arg1\0on_trajectoryComboBox_textActivated\0"
     "on_changeMapComboBox_textActivated\0"
-    "on_pbUpdate_clicked"
+    "on_pbUpdate_clicked\0on_pbSet_clicked\0"
+    "on_pbDel_clicked\0delModemMap\0x\0y\0"
+    "on_pbSetAUV_toggled\0checked"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,7 +63,7 @@ static const uint qt_meta_data_Widget[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -62,16 +71,24 @@ static const uint qt_meta_data_Widget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   34,    2, 0x08 /* Private */,
-       4,    1,   37,    2, 0x08 /* Private */,
-       5,    1,   40,    2, 0x08 /* Private */,
-       6,    0,   43,    2, 0x08 /* Private */,
+       1,    1,   54,    2, 0x08 /* Private */,
+       4,    1,   57,    2, 0x08 /* Private */,
+       5,    1,   60,    2, 0x08 /* Private */,
+       6,    0,   63,    2, 0x08 /* Private */,
+       7,    0,   64,    2, 0x08 /* Private */,
+       8,    0,   65,    2, 0x08 /* Private */,
+       9,    2,   66,    2, 0x08 /* Private */,
+      12,    1,   71,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString,    3,
     QMetaType::Void, QMetaType::QString,    3,
     QMetaType::Void, QMetaType::QString,    3,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::UChar, QMetaType::UChar,   10,   11,
+    QMetaType::Void, QMetaType::Bool,   13,
 
        0        // eod
 };
@@ -86,6 +103,10 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 1: _t->on_trajectoryComboBox_textActivated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 2: _t->on_changeMapComboBox_textActivated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 3: _t->on_pbUpdate_clicked(); break;
+        case 4: _t->on_pbSet_clicked(); break;
+        case 5: _t->on_pbDel_clicked(); break;
+        case 6: _t->delModemMap((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2]))); break;
+        case 7: _t->on_pbSetAUV_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -120,13 +141,13 @@ int Widget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 4;
+        _id -= 8;
     }
     return _id;
 }
