@@ -471,8 +471,14 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>350</width>
+         <width>400</width>
          <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>400</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="palette">
@@ -530,7 +536,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_6" stretch="1,0">
+          <layout class="QVBoxLayout" name="verticalLayout_6">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
              <item>
@@ -551,16 +557,45 @@
                 <number>0</number>
                </property>
                <item>
-                <widget class="QPushButton" name="pushButton">
+                <widget class="QLabel" name="labelErrorStart1">
+                 <property name="font">
+                  <font>
+                   <italic>true</italic>
+                  </font>
+                 </property>
                  <property name="text">
-                  <string>Старт</string>
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_2">
+                <widget class="QLabel" name="labelErrorStart2">
                  <property name="text">
-                  <string>Стоп</string>
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pbStart">
+                 <property name="font">
+                  <font>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Старт</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -583,16 +618,28 @@
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="checkBox_2">
+                <widget class="QCheckBox" name="checkBoxModel">
                  <property name="text">
                   <string>Смоделированное</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="checkBox_3">
+                <widget class="QCheckBox" name="checkBoxIdael">
                  <property name="text">
                   <string>Идеальное</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoRepeat">
+                  <bool>false</bool>
+                 </property>
+                 <property name="tristate">
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -602,16 +649,22 @@
            </item>
            <item>
             <widget class="QToolBox" name="toolBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="setAqua">
               <property name="geometry">
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>404</width>
-                <height>338</height>
+                <width>376</width>
+                <height>496</height>
                </rect>
               </property>
               <attribute name="label">
@@ -794,8 +847,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>404</width>
-                <height>381</height>
+                <width>376</width>
+                <height>496</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1445,14 +1498,14 @@
                              <widget class="QLineEdit" name="yAUVLineEdit"/>
                             </item>
                             <item row="2" column="0">
-                             <widget class="QLabel" name="psiLabel">
+                             <widget class="QLabel" name="speedAUVLabel">
                               <property name="text">
-                               <string>Курс</string>
+                               <string>Скорость</string>
                               </property>
                              </widget>
                             </item>
                             <item row="2" column="1">
-                             <widget class="QLineEdit" name="psiLineEdit"/>
+                             <widget class="QLineEdit" name="speedAUVLineEdit"/>
                             </item>
                             <item row="3" column="1">
                              <widget class="QPushButton" name="pbSetAUV">
@@ -1582,8 +1635,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>404</width>
-                <height>286</height>
+                <width>376</width>
+                <height>496</height>
                </rect>
               </property>
               <attribute name="label">

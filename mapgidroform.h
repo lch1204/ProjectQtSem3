@@ -9,6 +9,8 @@
 #include <QPainter>
 #include <QFile>
 #include "ui_mapgidroform.h"
+#include "moveauv.h"
+#include "CustomScatterSeries.h"
 
 using namespace QtCharts;
 
@@ -37,8 +39,15 @@ public:
     QGraphicsLineItem *zeroAxisX = nullptr;
     QGraphicsLineItem *zeroAxisY = nullptr;
 
+    QPointF line_start_point ;
+
+
+    QGraphicsPixmapItem *modemItem = nullptr;
+
     QScatterSeries *modemPosition = nullptr;
     QScatterSeries *auvPosition = nullptr;
+
+    QGraphicsItemGroup *group = nullptr;
 
     void setAuqa(quint8 heightX,quint8 widthY);
     void addMarker(quint8 x,quint8 y);
@@ -47,9 +56,15 @@ public:
     void addAUV(quint8 x,quint8 y);
     void delAUV();
 
+    MoveAUV moveAUV;
+
     QPen aquamarine; // Фиолетовый цвет (RGB: 128, 64, 255)
 
     void updateZeroAxes();
+
+    void startMove(qint8 V);
+    void stopMove();
+
 
     void setCustomMarker(const QString &filePath) {
         QPixmap pixmap(filePath);
@@ -57,6 +72,11 @@ public:
     }
 
     QPixmap m_markerPixmap;
+
+    void clearGroup(QGraphicsItemGroup* group);
+
+public slots:
+    void tickMove(float X,float Y);
 };
 
 #endif // MAPGIDROFORM_H

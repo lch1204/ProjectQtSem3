@@ -41,13 +41,14 @@ public:
     QVBoxLayout *verticalLayout_6;
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout_4;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
+    QLabel *labelErrorStart1;
+    QLabel *labelErrorStart2;
+    QPushButton *pbStart;
     QPushButton *pushButton_3;
     QVBoxLayout *verticalLayout_5;
     QLabel *label_6;
-    QCheckBox *checkBox_2;
-    QCheckBox *checkBox_3;
+    QCheckBox *checkBoxModel;
+    QCheckBox *checkBoxIdael;
     QToolBox *toolBox;
     QWidget *setAqua;
     QVBoxLayout *verticalLayout_20;
@@ -107,8 +108,8 @@ public:
     QLineEdit *xAUVLineEdit;
     QLabel *yAUVLabel;
     QLineEdit *yAUVLineEdit;
-    QLabel *psiLabel;
-    QLineEdit *psiLineEdit;
+    QLabel *speedAUVLabel;
+    QLineEdit *speedAUVLineEdit;
     QPushButton *pbSetAUV;
     QHBoxLayout *horizontalLayout_8;
     QLabel *label_5;
@@ -266,7 +267,8 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
         tabWidget->setSizePolicy(sizePolicy);
-        tabWidget->setMinimumSize(QSize(350, 0));
+        tabWidget->setMinimumSize(QSize(400, 0));
+        tabWidget->setMaximumSize(QSize(400, 16777215));
         QPalette palette1;
         QBrush brush16(QColor(153, 253, 217, 255));
         brush16.setStyle(Qt::SolidPattern);
@@ -289,15 +291,30 @@ public:
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         verticalLayout_4->setContentsMargins(0, 9, 0, 0);
-        pushButton = new QPushButton(mission);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        labelErrorStart1 = new QLabel(mission);
+        labelErrorStart1->setObjectName(QString::fromUtf8("labelErrorStart1"));
+        QFont font;
+        font.setItalic(true);
+        labelErrorStart1->setFont(font);
+        labelErrorStart1->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_4->addWidget(pushButton);
+        verticalLayout_4->addWidget(labelErrorStart1);
 
-        pushButton_2 = new QPushButton(mission);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        labelErrorStart2 = new QLabel(mission);
+        labelErrorStart2->setObjectName(QString::fromUtf8("labelErrorStart2"));
+        labelErrorStart2->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_4->addWidget(pushButton_2);
+        verticalLayout_4->addWidget(labelErrorStart2);
+
+        pbStart = new QPushButton(mission);
+        pbStart->setObjectName(QString::fromUtf8("pbStart"));
+        QFont font1;
+        font1.setKerning(true);
+        pbStart->setFont(font1);
+        pbStart->setCheckable(true);
+        pbStart->setChecked(false);
+
+        verticalLayout_4->addWidget(pbStart);
 
         pushButton_3 = new QPushButton(mission);
         pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
@@ -314,15 +331,19 @@ public:
 
         verticalLayout_5->addWidget(label_6, 0, Qt::AlignHCenter);
 
-        checkBox_2 = new QCheckBox(mission);
-        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
+        checkBoxModel = new QCheckBox(mission);
+        checkBoxModel->setObjectName(QString::fromUtf8("checkBoxModel"));
+        checkBoxModel->setChecked(true);
 
-        verticalLayout_5->addWidget(checkBox_2);
+        verticalLayout_5->addWidget(checkBoxModel);
 
-        checkBox_3 = new QCheckBox(mission);
-        checkBox_3->setObjectName(QString::fromUtf8("checkBox_3"));
+        checkBoxIdael = new QCheckBox(mission);
+        checkBoxIdael->setObjectName(QString::fromUtf8("checkBoxIdael"));
+        checkBoxIdael->setChecked(true);
+        checkBoxIdael->setAutoRepeat(false);
+        checkBoxIdael->setTristate(false);
 
-        verticalLayout_5->addWidget(checkBox_3);
+        verticalLayout_5->addWidget(checkBoxIdael);
 
 
         horizontalLayout_2->addLayout(verticalLayout_5);
@@ -334,9 +355,14 @@ public:
 
         toolBox = new QToolBox(mission);
         toolBox->setObjectName(QString::fromUtf8("toolBox"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(toolBox->sizePolicy().hasHeightForWidth());
+        toolBox->setSizePolicy(sizePolicy1);
         setAqua = new QWidget();
         setAqua->setObjectName(QString::fromUtf8("setAqua"));
-        setAqua->setGeometry(QRect(0, 0, 404, 338));
+        setAqua->setGeometry(QRect(0, 0, 376, 496));
         verticalLayout_20 = new QVBoxLayout(setAqua);
         verticalLayout_20->setObjectName(QString::fromUtf8("verticalLayout_20"));
         horizontalLayout_3 = new QHBoxLayout();
@@ -420,11 +446,11 @@ public:
         formLayout_7->setLabelAlignment(Qt::AlignCenter);
         xminMLabel = new QLabel(setAqua);
         xminMLabel->setObjectName(QString::fromUtf8("xminMLabel"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(xminMLabel->sizePolicy().hasHeightForWidth());
-        xminMLabel->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(xminMLabel->sizePolicy().hasHeightForWidth());
+        xminMLabel->setSizePolicy(sizePolicy2);
         xminMLabel->setAlignment(Qt::AlignCenter);
 
         formLayout_7->setWidget(0, QFormLayout::LabelRole, xminMLabel);
@@ -452,8 +478,8 @@ public:
 
         yminMLabel = new QLabel(setAqua);
         yminMLabel->setObjectName(QString::fromUtf8("yminMLabel"));
-        sizePolicy1.setHeightForWidth(yminMLabel->sizePolicy().hasHeightForWidth());
-        yminMLabel->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(yminMLabel->sizePolicy().hasHeightForWidth());
+        yminMLabel->setSizePolicy(sizePolicy2);
         yminMLabel->setAlignment(Qt::AlignCenter);
 
         formLayout_7->setWidget(2, QFormLayout::LabelRole, yminMLabel);
@@ -475,7 +501,7 @@ public:
         toolBox->addItem(setAqua, QString::fromUtf8("\320\235\320\260\321\201\321\202\321\200\320\276\320\271\320\272\320\260 \320\272\320\260\321\200\321\202\321\213"));
         setObject = new QWidget();
         setObject->setObjectName(QString::fromUtf8("setObject"));
-        setObject->setGeometry(QRect(0, 0, 404, 381));
+        setObject->setGeometry(QRect(0, 0, 376, 496));
         verticalLayout_8 = new QVBoxLayout(setObject);
         verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
         maikFolder = new QGroupBox(setObject);
@@ -536,9 +562,9 @@ public:
         palette2.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush14);
 #endif
         maikFolder->setPalette(palette2);
-        QFont font;
-        font.setPointSize(11);
-        maikFolder->setFont(font);
+        QFont font2;
+        font2.setPointSize(11);
+        maikFolder->setFont(font2);
         horizontalLayout_7 = new QHBoxLayout(maikFolder);
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         verticalLayout_3 = new QVBoxLayout();
@@ -610,14 +636,14 @@ public:
 
         labelErrorSetModem = new QLabel(modem);
         labelErrorSetModem->setObjectName(QString::fromUtf8("labelErrorSetModem"));
-        QFont font1;
-        font1.setPointSize(11);
-        font1.setBold(false);
-        font1.setItalic(true);
-        font1.setUnderline(false);
-        font1.setStrikeOut(false);
-        font1.setKerning(true);
-        labelErrorSetModem->setFont(font1);
+        QFont font3;
+        font3.setPointSize(11);
+        font3.setBold(false);
+        font3.setItalic(true);
+        font3.setUnderline(false);
+        font3.setStrikeOut(false);
+        font3.setKerning(true);
+        labelErrorSetModem->setFont(font3);
         labelErrorSetModem->setMouseTracking(false);
         labelErrorSetModem->setAlignment(Qt::AlignCenter);
 
@@ -646,10 +672,10 @@ public:
 
         labelErrorDelModem = new QLabel(modem);
         labelErrorDelModem->setObjectName(QString::fromUtf8("labelErrorDelModem"));
-        QFont font2;
-        font2.setPointSize(11);
-        font2.setItalic(true);
-        labelErrorDelModem->setFont(font2);
+        QFont font4;
+        font4.setPointSize(11);
+        font4.setItalic(true);
+        labelErrorDelModem->setFont(font4);
         labelErrorDelModem->setAlignment(Qt::AlignCenter);
 
         formLayout->setWidget(9, QFormLayout::FieldRole, labelErrorDelModem);
@@ -686,15 +712,15 @@ public:
 
         formLayout_4->setWidget(1, QFormLayout::FieldRole, yAUVLineEdit);
 
-        psiLabel = new QLabel(auv);
-        psiLabel->setObjectName(QString::fromUtf8("psiLabel"));
+        speedAUVLabel = new QLabel(auv);
+        speedAUVLabel->setObjectName(QString::fromUtf8("speedAUVLabel"));
 
-        formLayout_4->setWidget(2, QFormLayout::LabelRole, psiLabel);
+        formLayout_4->setWidget(2, QFormLayout::LabelRole, speedAUVLabel);
 
-        psiLineEdit = new QLineEdit(auv);
-        psiLineEdit->setObjectName(QString::fromUtf8("psiLineEdit"));
+        speedAUVLineEdit = new QLineEdit(auv);
+        speedAUVLineEdit->setObjectName(QString::fromUtf8("speedAUVLineEdit"));
 
-        formLayout_4->setWidget(2, QFormLayout::FieldRole, psiLineEdit);
+        formLayout_4->setWidget(2, QFormLayout::FieldRole, speedAUVLineEdit);
 
         pbSetAUV = new QPushButton(auv);
         pbSetAUV->setObjectName(QString::fromUtf8("pbSetAUV"));
@@ -805,7 +831,7 @@ public:
         toolBox->addItem(setObject, QString::fromUtf8("\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\272\320\260 \320\276\320\261\321\212\320\265\320\272\321\202\320\276\320\262"));
         setAlgoritm = new QWidget();
         setAlgoritm->setObjectName(QString::fromUtf8("setAlgoritm"));
-        setAlgoritm->setGeometry(QRect(0, 0, 404, 286));
+        setAlgoritm->setGeometry(QRect(0, 0, 376, 496));
         horizontalLayout_4 = new QHBoxLayout(setAlgoritm);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         verticalLayout_2 = new QVBoxLayout();
@@ -909,7 +935,6 @@ public:
 
         verticalLayout_6->addWidget(toolBox);
 
-        verticalLayout_6->setStretch(0, 1);
 
         verticalLayout_7->addLayout(verticalLayout_6);
 
@@ -1019,7 +1044,7 @@ public:
         retranslateUi(Widget);
 
         tabWidget->setCurrentIndex(0);
-        toolBox->setCurrentIndex(1);
+        toolBox->setCurrentIndex(0);
         stackedWidget->setCurrentIndex(1);
         trajectoryStackedWidget->setCurrentIndex(0);
         changeMapStackedWidget->setCurrentIndex(0);
@@ -1031,12 +1056,13 @@ public:
     void retranslateUi(QWidget *Widget)
     {
         Widget->setWindowTitle(QCoreApplication::translate("Widget", "Widget", nullptr));
-        pushButton->setText(QCoreApplication::translate("Widget", "\320\241\321\202\320\260\321\200\321\202", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("Widget", "\320\241\321\202\320\276\320\277", nullptr));
+        labelErrorStart1->setText(QString());
+        labelErrorStart2->setText(QString());
+        pbStart->setText(QCoreApplication::translate("Widget", "\320\241\321\202\320\260\321\200\321\202", nullptr));
         pushButton_3->setText(QCoreApplication::translate("Widget", "\320\236\321\202\320\274\320\265\320\275\320\260", nullptr));
         label_6->setText(QCoreApplication::translate("Widget", "\320\236\321\202\320\276\320\261\321\200\320\260\320\266\320\265\320\275\320\270\320\265 \320\264\320\262\320\270\320\266\320\265\320\275\320\270\321\217", nullptr));
-        checkBox_2->setText(QCoreApplication::translate("Widget", "\320\241\320\274\320\276\320\264\320\265\320\273\320\270\321\200\320\276\320\262\320\260\320\275\320\275\320\276\320\265", nullptr));
-        checkBox_3->setText(QCoreApplication::translate("Widget", "\320\230\320\264\320\265\320\260\320\273\321\214\320\275\320\276\320\265", nullptr));
+        checkBoxModel->setText(QCoreApplication::translate("Widget", "\320\241\320\274\320\276\320\264\320\265\320\273\320\270\321\200\320\276\320\262\320\260\320\275\320\275\320\276\320\265", nullptr));
+        checkBoxIdael->setText(QCoreApplication::translate("Widget", "\320\230\320\264\320\265\320\260\320\273\321\214\320\275\320\276\320\265", nullptr));
         pbUpdate->setText(QCoreApplication::translate("Widget", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
         pbClear->setText(QCoreApplication::translate("Widget", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214", nullptr));
         label_7->setText(QCoreApplication::translate("Widget", "\320\220\320\272\320\262\320\260\321\202\320\276\321\200\320\270\321\217", nullptr));
@@ -1066,7 +1092,7 @@ public:
         labelErrorDelModem->setText(QString());
         xAUVLabel->setText(QCoreApplication::translate("Widget", "X", nullptr));
         yAUVLabel->setText(QCoreApplication::translate("Widget", "Y", nullptr));
-        psiLabel->setText(QCoreApplication::translate("Widget", "\320\232\321\203\321\200\321\201", nullptr));
+        speedAUVLabel->setText(QCoreApplication::translate("Widget", "\320\241\320\272\320\276\321\200\320\276\321\201\321\202\321\214", nullptr));
         pbSetAUV->setText(QCoreApplication::translate("Widget", "\320\243\321\201\321\202\320\260\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
         label_5->setText(QCoreApplication::translate("Widget", "\320\242\321\200\320\260\320\265\320\272\321\202\320\276\321\200\320\270\321\217", nullptr));
         trajectoryComboBox->setItemText(0, QCoreApplication::translate("Widget", "\320\223\320\220\320\233\320\241 \320\263\320\276\321\200\320\270\320\267\320\276\320\275\321\202\320\260\320\273\321\214\320\275\321\213\320\271", nullptr));

@@ -1,6 +1,6 @@
 QT       += core gui charts svg
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += widgets
 
 CONFIG += c++17
 
@@ -13,12 +13,15 @@ SOURCES += \
     graphform.cpp \
     main.cpp \
     mapgidroform.cpp \
+    moveauv.cpp \
     widget.cpp
 
 HEADERS += \
+    CustomScatterSeries.h \
     gansdata.h \
     graphform.h \
     mapgidroform.h \
+    moveauv.h \
     widget.h
 
 FORMS += \
@@ -30,3 +33,9 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    pictures/love_11064467.png \
+    pictures/octopus_11064758.png \
+    pictures/stingray_11064643.png \
+    pictures/superhero_2503243.png

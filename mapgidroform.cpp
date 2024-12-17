@@ -15,6 +15,10 @@ MapGidroForm::MapGidroForm(QWidget *parent)
     setLayout(hLayout);
     chartView->setChart(chart);
 
+    // QGraphicsItemGroup *group = new QGraphicsItemGroup();
+    group = chart->scene()->createItemGroup({});
+    // chart->scene()->addItem(group);
+
     // Настройка осей
     xAxis = new QValueAxis(chart);
     yAxis = new QValueAxis(chart);
@@ -62,13 +66,12 @@ MapGidroForm::MapGidroForm(QWidget *parent)
     zeroAxisY->setPen(aquamarine);
     chart->scene()->addItem(zeroAxisX);
     chart->scene()->addItem(zeroAxisY);
+
     zeroAxisX->setZValue(0);
     zeroAxisY->setZValue(1);
+    group->setZValue(2);
 
     QRectF plotArea = chart->plotArea();
-
-    connect(xAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
-    connect(yAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
 
     chart->setPlotArea(QRectF(plotArea.x(), plotArea.y(), plotArea.width(), plotArea.height())); // Уменьшаем отступы.
 
@@ -83,7 +86,7 @@ MapGidroForm::MapGidroForm(QWidget *parent)
     areaRect->attachAxis(xAxis);
     areaRect->attachAxis(yAxis);
 
-    updateZeroAxes();
+
 
     modemPosition = new QScatterSeries(chart);
 
@@ -94,13 +97,18 @@ MapGidroForm::MapGidroForm(QWidget *parent)
     modemPosition->attachAxis(yAxis);
 
     // Устанавливаем изображение как маркер
-    modemPosition->setMarkerShape(QScatterSeries::MarkerShapeCircle); // Временная форма
-    modemPosition->setMarkerSize(20); // Размер маркера
-    modemPosition->setBrush(QBrush(QColorConstants::Cyan)); // Устанавливаем маркер
+    // modemPosition->setMarkerShape(QScatterSeries::MarkerShapeCircle); // Временная форма
 
-    auvPosition->setMarkerShape(QScatterSeries::MarkerShapeCircle);
-    auvPosition->setMarkerSize(25);
-    auvPosition->setColor(QColorConstants::Blue);
+    // modemPosition->setMarkerSize(20); // Размер маркера
+    // modemPosition->setBrush(QBrush(QColorConstants::Cyan)); // Устанавливаем маркер
+
+    // auvPosition->setMarkerShape(QScatterSeries::MarkerShapeCircle);
+    // auvPosition->setMarkerSize(25);
+    // auvPosition->setColor(QColorConstants::Blue);
+    updateZeroAxes();
+    connect(&moveAUV, &MoveAUV::updateAUV, this, &MapGidroForm::tickMove);
+    connect(xAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
+    connect(yAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
 }
 
 MapGidroForm::~MapGidroForm()
@@ -129,21 +137,52 @@ void MapGidroForm::setAuqa(quint8 heightX, quint8 widthY)
 void MapGidroForm::addMarker(quint8 x, quint8 y)
 {
     modemPosition->append(x,y);
+
+    QImage markerImage("../../pictures/superhero_2503243.png");
+
+    for (const QPointF& point : modemPosition->points()) {
+        // QGraphicsPixmapItem* item1 = new QGraphicsPixmapItem(QPixmap("../../pictures/superhero_2503243.png"));
+        CustomMarker* marker = new CustomMarker(markerImage.transformed(QTransform::fromScale(0.08, 0.08)), point, chart);
+        qDebug() << "тута";
+        if (group) {
+            group->addToGroup(marker);
+        } else {
+            qDebug() << "Group is null!";
+        }
+        // group->addToGroup(marker);
+        // group.;
+        qDebug() << "тутатута";
+    }
+
 }
 
 void MapGidroForm::delMarker(quint8 x, quint8 y)
 {
     modemPosition->remove(x,y);
+
+    QImage markerImage("../../pictures/superhero_2503243.png");
+
+    clearGroup(group);
+    if (!modemPosition->points().isEmpty())
+    {
+        for (const QPointF& point : modemPosition->points()) {
+            CustomMarker* marker = new CustomMarker(markerImage.transformed(QTransform::fromScale(0.08, 0.08)), point, chart);
+            group->addToGroup(marker);
+            qDebug() << "add";
+        }
+    }
 }
 
 void MapGidroForm::addAUV(quint8 x, quint8 y)
 {
     auvPosition->append(x,y);
+    moveAUV.setAUV_XY(x,y);
 }
 
 void MapGidroForm::delAUV()
 {
     auvPosition->clear();
+    trajectoryAUV->clear();
 }
 
 void MapGidroForm::updateZeroAxes()
@@ -173,4 +212,48 @@ void MapGidroForm::updateZeroAxes()
     } else {
         zeroAxisY->setVisible(false); // Скрываем линию, если 0 не входит в диапазон оси X
     }
+
+    QImage markerImage("../../pictures/superhero_2503243.png");
+
+    if (!modemPosition->points().isEmpty())
+    {
+        clearGroup(group);
+    for (const QPointF& point : modemPosition->points()) {
+        CustomMarker* marker = new CustomMarker(markerImage.transformed(QTransform::fromScale(0.08, 0.08)), point, chart);
+        group->addToGroup(marker);
+        qDebug() << "add";
+    }
+    }
 }
+
+
+
+void MapGidroForm::startMove(qint8 V)
+{
+    moveAUV.time->start();
+    qDebug() << "timer start";
+}
+
+void MapGidroForm::stopMove()
+{
+    moveAUV.time->stop();
+}
+
+void MapGidroForm::clearGroup(QGraphicsItemGroup *group) {
+
+    if (!group) return;
+    // Удаляем все дочерние элементы из сцены
+    for (QGraphicsItem* item : group->childItems()) {
+        group->scene()->removeItem(item); // Удаляем элемент из сцены
+        delete item; // Удаляем сам объект
+    }
+}
+
+void MapGidroForm::tickMove(float X, float Y)
+{
+    qDebug() << "tickMove";
+    trajectoryAUV->append(X,Y);
+    auvPosition->clear();
+    auvPosition->append(X,Y);
+}
+

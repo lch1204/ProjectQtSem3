@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <QTimer>
 #include "ui_widget.h"
 #include "gansdata.h"
 
@@ -25,5 +26,7 @@ private slots:
     void on_pbDel_clicked();
     void delModemMap(quint8 x, quint8 y);
     void on_pbSetAUV_toggled(bool checked);
+    void on_pbStart_clicked(bool checked);
+    void on_checkBoxIdael_clicked(bool checked);
 };
 #endif // WIDGET_H

@@ -27,11 +27,12 @@ Widget::Widget(QWidget *parent)
 
     xAUVLineEdit->setText("0");
     yAUVLineEdit->setText("40");
-    psiLineEdit->setText("90");
+    speedAUVLineEdit->setText("1");
     distGALSLineEdit->setText("1");
 
     on_pbUpdate_clicked();
     connect(data, &GansData::dataModemDel, this, &Widget::delModemMap);
+    stackedWidget->setCurrentIndex(0);
 }
 
 Widget::~Widget()
@@ -180,6 +181,8 @@ void Widget::on_pbSetAUV_toggled(bool checked)
 {
     if (checked)
     {
+        labelErrorStart1->setText("");
+        labelErrorStart2->setText("");
         QString x = xAUVLineEdit->text();
         QString y = yAUVLineEdit->text();
 
@@ -190,6 +193,49 @@ void Widget::on_pbSetAUV_toggled(bool checked)
     {
         qDebug() << "checked" << checked;
         mapPage->delAUV();
+    }
+}
+
+
+
+
+
+void Widget::on_pbStart_clicked(bool checked)
+{
+    if (checked)
+    {
+        if (pbSetAUV->isChecked())
+        {
+            qDebug() << "start";
+            QString V = speedAUVLineEdit->text();
+            mapPage->startMove(V.toInt());
+            pbStart->setText("Стоп");
+
+        }
+        else
+        {
+            labelErrorStart1->setStyleSheet("color: red;");
+            labelErrorStart1->setText("Дурак,");
+            labelErrorStart2->setStyleSheet("color: red;");
+            labelErrorStart2->setText("аппарат вначале задай");
+            pbStart->setChecked(false);
+        }
+    }
+    else
+    {
+        mapPage->stopMove();
+        pbStart->setText("Старт");
+    }
+}
+
+
+
+
+void Widget::on_checkBoxIdael_clicked(bool checked)
+{
+    if (checked)
+    {
+
     }
 }
 
