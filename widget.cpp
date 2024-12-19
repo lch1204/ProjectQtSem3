@@ -49,6 +49,7 @@ Widget::Widget(QWidget *parent)
     connect(LineEditTime, &QLineEdit::textChanged, graphPage, &GraphForm::setTime);
     connect(this, &Widget::modemData, &mapPage->modelModem, &ModelModem::modemData);
     connect(&mapPage->modelModem, &ModelModem::setTD, graphPage, &GraphForm::setTD);
+    connect(this,&Widget::setModemForCalc, &mapPage->modelModem, &ModelModem::setModem);
     stackedWidget->setCurrentIndex(0);
 
     redPalette.setColor(QPalette::Button, Qt::red);
@@ -84,6 +85,9 @@ Widget::Widget(QWidget *parent)
     lightPalette.setColor(QPalette::HighlightedText, QColor(0, 0, 0)); // Чёрный текст на выделении.setColor(QPalette::HighlightedText, QColor(0, 0, 0)); // Чёрный текст на выделении
 
     setPalette(lightPalette);
+
+    mapPage->moveAUV.setTimeModel("5");
+    graphPage->setTime("5");
 }
 
 Widget::~Widget()
@@ -236,12 +240,12 @@ void Widget::delModemMap(quint8 x, quint8 y)
 
 void Widget::on_pbSetAUV_toggled(bool checked)
 {
+    QString x = xAUVLineEdit->text();
+    QString y = yAUVLineEdit->text();
     if (checked)
     {
         labelErrorStart1->setText("");
         labelErrorStart2->setText("");
-        QString x = xAUVLineEdit->text();
-        QString y = yAUVLineEdit->text();
 
         qDebug() << "checked" << checked;
         mapPage->addAUV(x.toInt(),y.toInt());
@@ -251,6 +255,8 @@ void Widget::on_pbSetAUV_toggled(bool checked)
         qDebug() << "checked" << checked;
         mapPage->delAUV();
     }
+    ///для передачи в модель
+    emit setModemForCalc(x.toFloat(), y.toFloat());
 }
 
 
@@ -384,6 +390,7 @@ void Widget::on_pushButtonAbort_clicked()
     }
     pbSetAUV->setChecked(false);
     graphPage->clearTD();
+    mapPage->modelModem.timeCounter = 0;
 }
 
 
@@ -399,5 +406,18 @@ void Widget::on_cbReady_clicked(bool checked)
 
 
     }
+}
+
+
+void Widget::on_verticalSlider_sliderMoved(int position)
+{
+    qDebug() << "position"<<position;
+    graphPage->dAxis->setRange(0,position);
+}
+
+
+void Widget::on_verticalSlider_2_rangeChanged(int min, int max)
+{
+
 }
 

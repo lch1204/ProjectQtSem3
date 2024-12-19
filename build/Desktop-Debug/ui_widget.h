@@ -20,6 +20,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBox>
@@ -156,6 +157,7 @@ public:
     QPushButton *pushButton_4;
     QComboBox *changeMapComboBox;
     QPlainTextEdit *log;
+    QSlider *verticalSlider;
     QStackedWidget *changeMapStackedWidget;
     QWidget *page;
     QVBoxLayout *verticalLayout_15;
@@ -817,6 +819,11 @@ public:
         log = new QPlainTextEdit(diagn);
         log->setObjectName(QString::fromUtf8("log"));
         log->setGeometry(QRect(10, 42, 256, 192));
+        verticalSlider = new QSlider(diagn);
+        verticalSlider->setObjectName(QString::fromUtf8("verticalSlider"));
+        verticalSlider->setGeometry(QRect(340, 60, 31, 461));
+        verticalSlider->setMaximum(1000);
+        verticalSlider->setOrientation(Qt::Vertical);
         tabWidget->addTab(diagn, QString());
 
         horizontalLayout->addWidget(tabWidget);
@@ -940,9 +947,9 @@ public:
 
         retranslateUi(Widget);
 
-        tabWidget->setCurrentIndex(0);
-        toolBox->setCurrentIndex(2);
-        stackedWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(1);
+        toolBox->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(0);
         trajectoryStackedWidget->setCurrentIndex(0);
         changeMapStackedWidget->setCurrentIndex(0);
 

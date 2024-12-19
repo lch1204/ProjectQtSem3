@@ -110,6 +110,7 @@ MapGidroForm::MapGidroForm(QWidget *parent)
     connect(this, &MapGidroForm::newDataAqua, &moveAUV, &MoveAUV::updateBorder);
     connect(xAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
     connect(yAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
+    connect(&moveAUV, &MoveAUV::updateAUV, &modelModem, &ModelModem::setAUV);
 
     trajectoryAUV = new QSplineSeries(chart);
     chart->addSeries(trajectoryAUV);
@@ -239,7 +240,7 @@ void MapGidroForm::startMove()
 {
     moveAUV.time->start();
     moveAUV.timeModel->start();
-    modelModem.timeEl->restart();
+    // modelModem.timeEl->restart();
     modelModem.timeTick->start();
     qDebug() << "timer start";
 }
@@ -247,6 +248,7 @@ void MapGidroForm::startMove()
 void MapGidroForm::stopMove()
 {
     moveAUV.time->stop();
+    modelModem.timeTick->stop();
 }
 
 void MapGidroForm::clearGroup(QGraphicsItemGroup *group) {

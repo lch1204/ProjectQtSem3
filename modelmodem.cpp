@@ -16,15 +16,33 @@ void ModelModem::calcTime()
 
 }
 
-void ModelModem::calcDist()
+float ModelModem::calcDist()
 {
+    // Вычисляем расстояние между точками
+    float distance = std::sqrt(std::pow(xModem - xAUV, 2) + std::pow(yModem - yAUV, 2));
+    qDebug() << "distance" << distance;
+    // Применяем дисперсию
+    float modifiedDistance = distance * dispersion;
 
+    // Добавляем математическое ожидание
+    modifiedDistance += expection;
+
+    // Учитываем смещение
+    modifiedDistance += offset;
+
+    // Применяем коэффициент вариации
+    modifiedDistance *= (1 + variation);
+
+    return modifiedDistance;
 }
 
 void ModelModem::tick()
 {
-    timeEl->elapsed();
-    emit setTD(timeEl->elapsed()/1000, 1);
+    qDebug() << "timeEl->elapsed()"<<timeEl->elapsed();
+    timeCounter += 10;
+    float dist = calcDist();
+
+    emit setTD(timeCounter/1000, dist);
 }
 
 void ModelModem::modemData(float disp, float exp, float off, float var)
@@ -35,4 +53,16 @@ void ModelModem::modemData(float disp, float exp, float off, float var)
     variation = var;
     qDebug() << "dispersion" << dispersion << "; expection" <<
         expection << "; offset" << offset << "; variation" << variation;
+}
+
+void ModelModem::setModem(float x, float y)
+{
+    xModem = x;
+    yModem = y;
+}
+
+void ModelModem::setAUV(float x, float y)
+{
+    xAUV = x;
+    yAUV = y;
 }

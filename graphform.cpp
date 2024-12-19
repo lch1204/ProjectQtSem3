@@ -27,8 +27,7 @@ GraphForm::GraphForm(QWidget *parent)
     dAxis->setTickCount(10);
     dAxis->setTitleText("D, m");
 
-    graphModem->attachAxis(tAxis);
-    graphModem->attachAxis(dAxis);
+
 
     chart->addAxis(dAxis, Qt::AlignLeft);
     chart->addAxis(tAxis, Qt::AlignBottom);
@@ -55,6 +54,9 @@ GraphForm::GraphForm(QWidget *parent)
     dAxis->setGridLineColor(Qt::gray);
     tAxis->setGridLineColor(Qt::gray);
     chart->legend()->hide();
+
+    graphModem->attachAxis(tAxis);
+    graphModem->attachAxis(dAxis);
 }
 
 GraphForm::~GraphForm()

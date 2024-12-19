@@ -45,10 +45,13 @@ private slots:
 
     void on_cbReady_clicked(bool checked);
 
+    void on_verticalSlider_sliderMoved(int position);
+
 signals:
     void updateTrajectory(char regim);
     void updateGALSDist(float d);
     void updateSpeed(float sp);
     void modemData(float disp, float exp, float off, float var);
+    void setModemForCalc(float x, float y);
 };
 #endif // WIDGET_H

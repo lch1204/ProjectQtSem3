@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Widget_t {
-    QByteArrayData data[33];
-    char stringdata0[514];
+    QByteArrayData data[36];
+    char stringdata0[569];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -45,36 +45,39 @@ QT_MOC_LITERAL(9, 73, 4), // "disp"
 QT_MOC_LITERAL(10, 78, 3), // "exp"
 QT_MOC_LITERAL(11, 82, 3), // "off"
 QT_MOC_LITERAL(12, 86, 3), // "var"
-QT_MOC_LITERAL(13, 90, 34), // "on_setNewObjComboBox_textActi..."
-QT_MOC_LITERAL(14, 125, 4), // "arg1"
-QT_MOC_LITERAL(15, 130, 35), // "on_trajectoryComboBox_textAct..."
-QT_MOC_LITERAL(16, 166, 34), // "on_changeMapComboBox_textActi..."
-QT_MOC_LITERAL(17, 201, 19), // "on_pbUpdate_clicked"
-QT_MOC_LITERAL(18, 221, 16), // "on_pbSet_clicked"
-QT_MOC_LITERAL(19, 238, 16), // "on_pbDel_clicked"
-QT_MOC_LITERAL(20, 255, 11), // "delModemMap"
-QT_MOC_LITERAL(21, 267, 1), // "x"
-QT_MOC_LITERAL(22, 269, 1), // "y"
-QT_MOC_LITERAL(23, 271, 19), // "on_pbSetAUV_toggled"
-QT_MOC_LITERAL(24, 291, 7), // "checked"
-QT_MOC_LITERAL(25, 299, 18), // "on_pbStart_clicked"
-QT_MOC_LITERAL(26, 318, 24), // "on_checkBoxIdael_clicked"
-QT_MOC_LITERAL(27, 343, 35), // "on_distGALSLineEdit_editingFi..."
-QT_MOC_LITERAL(28, 379, 35), // "on_speedAUVLineEdit_editingFi..."
-QT_MOC_LITERAL(29, 415, 25), // "on_checkBoxShowXY_clicked"
-QT_MOC_LITERAL(30, 441, 26), // "on_pushButtonTheme_clicked"
-QT_MOC_LITERAL(31, 468, 26), // "on_pushButtonAbort_clicked"
-QT_MOC_LITERAL(32, 495, 18) // "on_cbReady_clicked"
+QT_MOC_LITERAL(13, 90, 15), // "setModemForCalc"
+QT_MOC_LITERAL(14, 106, 1), // "x"
+QT_MOC_LITERAL(15, 108, 1), // "y"
+QT_MOC_LITERAL(16, 110, 34), // "on_setNewObjComboBox_textActi..."
+QT_MOC_LITERAL(17, 145, 4), // "arg1"
+QT_MOC_LITERAL(18, 150, 35), // "on_trajectoryComboBox_textAct..."
+QT_MOC_LITERAL(19, 186, 34), // "on_changeMapComboBox_textActi..."
+QT_MOC_LITERAL(20, 221, 19), // "on_pbUpdate_clicked"
+QT_MOC_LITERAL(21, 241, 16), // "on_pbSet_clicked"
+QT_MOC_LITERAL(22, 258, 16), // "on_pbDel_clicked"
+QT_MOC_LITERAL(23, 275, 11), // "delModemMap"
+QT_MOC_LITERAL(24, 287, 19), // "on_pbSetAUV_toggled"
+QT_MOC_LITERAL(25, 307, 7), // "checked"
+QT_MOC_LITERAL(26, 315, 18), // "on_pbStart_clicked"
+QT_MOC_LITERAL(27, 334, 24), // "on_checkBoxIdael_clicked"
+QT_MOC_LITERAL(28, 359, 35), // "on_distGALSLineEdit_editingFi..."
+QT_MOC_LITERAL(29, 395, 35), // "on_speedAUVLineEdit_editingFi..."
+QT_MOC_LITERAL(30, 431, 25), // "on_checkBoxShowXY_clicked"
+QT_MOC_LITERAL(31, 457, 26), // "on_pushButtonTheme_clicked"
+QT_MOC_LITERAL(32, 484, 26), // "on_pushButtonAbort_clicked"
+QT_MOC_LITERAL(33, 511, 18), // "on_cbReady_clicked"
+QT_MOC_LITERAL(34, 530, 29), // "on_verticalSlider_sliderMoved"
+QT_MOC_LITERAL(35, 560, 8) // "position"
 
     },
     "Widget\0updateTrajectory\0\0regim\0"
     "updateGALSDist\0d\0updateSpeed\0sp\0"
-    "modemData\0disp\0exp\0off\0var\0"
-    "on_setNewObjComboBox_textActivated\0"
+    "modemData\0disp\0exp\0off\0var\0setModemForCalc\0"
+    "x\0y\0on_setNewObjComboBox_textActivated\0"
     "arg1\0on_trajectoryComboBox_textActivated\0"
     "on_changeMapComboBox_textActivated\0"
     "on_pbUpdate_clicked\0on_pbSet_clicked\0"
-    "on_pbDel_clicked\0delModemMap\0x\0y\0"
+    "on_pbDel_clicked\0delModemMap\0"
     "on_pbSetAUV_toggled\0checked\0"
     "on_pbStart_clicked\0on_checkBoxIdael_clicked\0"
     "on_distGALSLineEdit_editingFinished\0"
@@ -82,7 +85,8 @@ QT_MOC_LITERAL(32, 495, 18) // "on_cbReady_clicked"
     "on_checkBoxShowXY_clicked\0"
     "on_pushButtonTheme_clicked\0"
     "on_pushButtonAbort_clicked\0"
-    "on_cbReady_clicked"
+    "on_cbReady_clicked\0on_verticalSlider_sliderMoved\0"
+    "position"
 };
 #undef QT_MOC_LITERAL
 
@@ -92,60 +96,64 @@ static const uint qt_meta_data_Widget[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      20,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  114,    2, 0x06 /* Public */,
-       4,    1,  117,    2, 0x06 /* Public */,
-       6,    1,  120,    2, 0x06 /* Public */,
-       8,    4,  123,    2, 0x06 /* Public */,
+       1,    1,  124,    2, 0x06 /* Public */,
+       4,    1,  127,    2, 0x06 /* Public */,
+       6,    1,  130,    2, 0x06 /* Public */,
+       8,    4,  133,    2, 0x06 /* Public */,
+      13,    2,  142,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      13,    1,  132,    2, 0x08 /* Private */,
-      15,    1,  135,    2, 0x08 /* Private */,
-      16,    1,  138,    2, 0x08 /* Private */,
-      17,    0,  141,    2, 0x08 /* Private */,
-      18,    0,  142,    2, 0x08 /* Private */,
-      19,    0,  143,    2, 0x08 /* Private */,
-      20,    2,  144,    2, 0x08 /* Private */,
-      23,    1,  149,    2, 0x08 /* Private */,
-      25,    1,  152,    2, 0x08 /* Private */,
-      26,    1,  155,    2, 0x08 /* Private */,
-      27,    0,  158,    2, 0x08 /* Private */,
-      28,    0,  159,    2, 0x08 /* Private */,
-      29,    1,  160,    2, 0x08 /* Private */,
-      30,    1,  163,    2, 0x08 /* Private */,
-      31,    0,  166,    2, 0x08 /* Private */,
-      32,    1,  167,    2, 0x08 /* Private */,
+      16,    1,  147,    2, 0x08 /* Private */,
+      18,    1,  150,    2, 0x08 /* Private */,
+      19,    1,  153,    2, 0x08 /* Private */,
+      20,    0,  156,    2, 0x08 /* Private */,
+      21,    0,  157,    2, 0x08 /* Private */,
+      22,    0,  158,    2, 0x08 /* Private */,
+      23,    2,  159,    2, 0x08 /* Private */,
+      24,    1,  164,    2, 0x08 /* Private */,
+      26,    1,  167,    2, 0x08 /* Private */,
+      27,    1,  170,    2, 0x08 /* Private */,
+      28,    0,  173,    2, 0x08 /* Private */,
+      29,    0,  174,    2, 0x08 /* Private */,
+      30,    1,  175,    2, 0x08 /* Private */,
+      31,    1,  178,    2, 0x08 /* Private */,
+      32,    0,  181,    2, 0x08 /* Private */,
+      33,    1,  182,    2, 0x08 /* Private */,
+      34,    1,  185,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Char,    3,
     QMetaType::Void, QMetaType::Float,    5,
     QMetaType::Void, QMetaType::Float,    7,
     QMetaType::Void, QMetaType::Float, QMetaType::Float, QMetaType::Float, QMetaType::Float,    9,   10,   11,   12,
+    QMetaType::Void, QMetaType::Float, QMetaType::Float,   14,   15,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString,   14,
-    QMetaType::Void, QMetaType::QString,   14,
-    QMetaType::Void, QMetaType::QString,   14,
+    QMetaType::Void, QMetaType::QString,   17,
+    QMetaType::Void, QMetaType::QString,   17,
+    QMetaType::Void, QMetaType::QString,   17,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::UChar, QMetaType::UChar,   21,   22,
-    QMetaType::Void, QMetaType::Bool,   24,
-    QMetaType::Void, QMetaType::Bool,   24,
-    QMetaType::Void, QMetaType::Bool,   24,
+    QMetaType::Void, QMetaType::UChar, QMetaType::UChar,   14,   15,
+    QMetaType::Void, QMetaType::Bool,   25,
+    QMetaType::Void, QMetaType::Bool,   25,
+    QMetaType::Void, QMetaType::Bool,   25,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   24,
-    QMetaType::Void, QMetaType::Bool,   24,
+    QMetaType::Void, QMetaType::Bool,   25,
+    QMetaType::Void, QMetaType::Bool,   25,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   24,
+    QMetaType::Void, QMetaType::Bool,   25,
+    QMetaType::Void, QMetaType::Int,   35,
 
        0        // eod
 };
@@ -160,22 +168,24 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 1: _t->updateGALSDist((*reinterpret_cast< float(*)>(_a[1]))); break;
         case 2: _t->updateSpeed((*reinterpret_cast< float(*)>(_a[1]))); break;
         case 3: _t->modemData((*reinterpret_cast< float(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
-        case 4: _t->on_setNewObjComboBox_textActivated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 5: _t->on_trajectoryComboBox_textActivated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 6: _t->on_changeMapComboBox_textActivated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 7: _t->on_pbUpdate_clicked(); break;
-        case 8: _t->on_pbSet_clicked(); break;
-        case 9: _t->on_pbDel_clicked(); break;
-        case 10: _t->delModemMap((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2]))); break;
-        case 11: _t->on_pbSetAUV_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 12: _t->on_pbStart_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 13: _t->on_checkBoxIdael_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 14: _t->on_distGALSLineEdit_editingFinished(); break;
-        case 15: _t->on_speedAUVLineEdit_editingFinished(); break;
-        case 16: _t->on_checkBoxShowXY_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 17: _t->on_pushButtonTheme_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 18: _t->on_pushButtonAbort_clicked(); break;
-        case 19: _t->on_cbReady_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 4: _t->setModemForCalc((*reinterpret_cast< float(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2]))); break;
+        case 5: _t->on_setNewObjComboBox_textActivated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 6: _t->on_trajectoryComboBox_textActivated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 7: _t->on_changeMapComboBox_textActivated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 8: _t->on_pbUpdate_clicked(); break;
+        case 9: _t->on_pbSet_clicked(); break;
+        case 10: _t->on_pbDel_clicked(); break;
+        case 11: _t->delModemMap((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2]))); break;
+        case 12: _t->on_pbSetAUV_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 13: _t->on_pbStart_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 14: _t->on_checkBoxIdael_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 15: _t->on_distGALSLineEdit_editingFinished(); break;
+        case 16: _t->on_speedAUVLineEdit_editingFinished(); break;
+        case 17: _t->on_checkBoxShowXY_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 18: _t->on_pushButtonTheme_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 19: _t->on_pushButtonAbort_clicked(); break;
+        case 20: _t->on_cbReady_clicked((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 21: _t->on_verticalSlider_sliderMoved((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -205,6 +215,13 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
             using _t = void (Widget::*)(float , float , float , float );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Widget::modemData)) {
                 *result = 3;
+                return;
+            }
+        }
+        {
+            using _t = void (Widget::*)(float , float );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Widget::setModemForCalc)) {
+                *result = 4;
                 return;
             }
         }
@@ -240,13 +257,13 @@ int Widget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 20)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 20;
+        _id -= 22;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 20)
+        if (_id < 22)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 20;
+        _id -= 22;
     }
     return _id;
 }
@@ -277,6 +294,13 @@ void Widget::modemData(float _t1, float _t2, float _t3, float _t4)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t3))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t4))) };
     QMetaObject::activate(this, &staticMetaObject, 3, _a);
+}
+
+// SIGNAL 4
+void Widget::setModemForCalc(float _t1, float _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE
