@@ -19,10 +19,11 @@ void ModelModem::calcTime()
 float ModelModem::calcDist()
 {
     // Вычисляем расстояние между точками
+    qDebug() << "xModem" << xModem << "; yModem" << yModem << "; xAUV" << xAUV << "; yAUV" << yAUV;
     float distance = std::sqrt(std::pow(xModem - xAUV, 2) + std::pow(yModem - yAUV, 2));
     qDebug() << "distance" << distance;
     // Применяем дисперсию
-    float modifiedDistance = distance * dispersion;
+    float modifiedDistance = distance * (1+dispersion);
 
     // Добавляем математическое ожидание
     modifiedDistance += expection;
@@ -63,6 +64,6 @@ void ModelModem::setModem(float x, float y)
 
 void ModelModem::setAUV(float x, float y)
 {
-    xAUV = x;
-    yAUV = y;
+    xAUV = y;
+    yAUV = x;
 }

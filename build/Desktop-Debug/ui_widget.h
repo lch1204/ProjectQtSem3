@@ -947,8 +947,8 @@ public:
 
         retranslateUi(Widget);
 
-        tabWidget->setCurrentIndex(1);
-        toolBox->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
+        toolBox->setCurrentIndex(2);
         stackedWidget->setCurrentIndex(0);
         trajectoryStackedWidget->setCurrentIndex(0);
         changeMapStackedWidget->setCurrentIndex(0);

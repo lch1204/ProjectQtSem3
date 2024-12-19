@@ -47,6 +47,7 @@ private slots:
 
     void on_verticalSlider_sliderMoved(int position);
 
+
 signals:
     void updateTrajectory(char regim);
     void updateGALSDist(float d);

@@ -416,8 +416,3 @@ void Widget::on_verticalSlider_sliderMoved(int position)
 }
 
 
-void Widget::on_verticalSlider_2_rangeChanged(int min, int max)
-{
-
-}
-

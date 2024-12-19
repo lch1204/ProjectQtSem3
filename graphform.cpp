@@ -67,7 +67,9 @@ void GraphForm::setTD(double T, double D)
 {
     // qDebug() << "append(T,D)";
     qDebug() << "T" << T << "; D" << D;
+
     graphModem->append(T,D);
+    // graphModem->append(T,D);
 }
 
 void GraphForm::clearTD()
