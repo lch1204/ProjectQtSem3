@@ -56,21 +56,25 @@ SOURCES       = ../../gansdata.cpp \
 		../../graphform.cpp \
 		../../main.cpp \
 		../../mapgidroform.cpp \
+		../../modelmodem.cpp \
 		../../moveauv.cpp \
 		../../widget.cpp moc_gansdata.cpp \
 		moc_graphform.cpp \
 		moc_mapgidroform.cpp \
+		moc_modelmodem.cpp \
 		moc_moveauv.cpp \
 		moc_widget.cpp
 OBJECTS       = gansdata.o \
 		graphform.o \
 		main.o \
 		mapgidroform.o \
+		modelmodem.o \
 		moveauv.o \
 		widget.o \
 		moc_gansdata.o \
 		moc_graphform.o \
 		moc_mapgidroform.o \
+		moc_modelmodem.o \
 		moc_moveauv.o \
 		moc_widget.o
 DIST          = ../../pictures/love_11064467.png \
@@ -166,11 +170,13 @@ DIST          = ../../pictures/love_11064467.png \
 		../../gansdata.h \
 		../../graphform.h \
 		../../mapgidroform.h \
+		../../modelmodem.h \
 		../../moveauv.h \
 		../../widget.h ../../gansdata.cpp \
 		../../graphform.cpp \
 		../../main.cpp \
 		../../mapgidroform.cpp \
+		../../modelmodem.cpp \
 		../../moveauv.cpp \
 		../../widget.cpp
 QMAKE_TARGET  = ProjectQtSem3
@@ -372,8 +378,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../CustomScatterSeries.h ../../gansdata.h ../../graphform.h ../../mapgidroform.h ../../moveauv.h ../../widget.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../gansdata.cpp ../../graphform.cpp ../../main.cpp ../../mapgidroform.cpp ../../moveauv.cpp ../../widget.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../CustomScatterSeries.h ../../gansdata.h ../../graphform.h ../../mapgidroform.h ../../modelmodem.h ../../moveauv.h ../../widget.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../gansdata.cpp ../../graphform.cpp ../../main.cpp ../../mapgidroform.cpp ../../modelmodem.cpp ../../moveauv.cpp ../../widget.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../graphform.ui ../../mapgidroform.ui ../../widget.ui $(DISTDIR)/
 
 
@@ -406,9 +412,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_gansdata.cpp moc_graphform.cpp moc_mapgidroform.cpp moc_moveauv.cpp moc_widget.cpp
+compiler_moc_header_make_all: moc_gansdata.cpp moc_graphform.cpp moc_mapgidroform.cpp moc_modelmodem.cpp moc_moveauv.cpp moc_widget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_gansdata.cpp moc_graphform.cpp moc_mapgidroform.cpp moc_moveauv.cpp moc_widget.cpp
+	-$(DEL_FILE) moc_gansdata.cpp moc_graphform.cpp moc_mapgidroform.cpp moc_modelmodem.cpp moc_moveauv.cpp moc_widget.cpp
 moc_gansdata.cpp: ../../gansdata.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -426,6 +432,11 @@ moc_mapgidroform.cpp: ../../mapgidroform.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/lch/ProjectQtSem3/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/lch/ProjectQtSem3 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCharts -I/usr/include/x86_64-linux-gnu/qt5/QtSvg -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../mapgidroform.h -o moc_mapgidroform.cpp
+
+moc_modelmodem.cpp: ../../modelmodem.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/lch/ProjectQtSem3/build/Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/lch/ProjectQtSem3 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtCharts -I/usr/include/x86_64-linux-gnu/qt5/QtSvg -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../modelmodem.h -o moc_modelmodem.cpp
 
 moc_moveauv.cpp: ../../moveauv.h \
 		moc_predefs.h \
@@ -501,6 +512,9 @@ mapgidroform.o: ../../mapgidroform.cpp ../../mapgidroform.h \
 		../../CustomScatterSeries.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mapgidroform.o ../../mapgidroform.cpp
 
+modelmodem.o: ../../modelmodem.cpp ../../modelmodem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o modelmodem.o ../../modelmodem.cpp
+
 moveauv.o: ../../moveauv.cpp ../../moveauv.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moveauv.o ../../moveauv.cpp
 
@@ -522,6 +536,9 @@ moc_graphform.o: moc_graphform.cpp
 
 moc_mapgidroform.o: moc_mapgidroform.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mapgidroform.o moc_mapgidroform.cpp
+
+moc_modelmodem.o: moc_modelmodem.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_modelmodem.o moc_modelmodem.cpp
 
 moc_moveauv.o: moc_moveauv.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_moveauv.o moc_moveauv.cpp

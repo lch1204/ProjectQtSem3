@@ -13,6 +13,7 @@ SOURCES += \
     graphform.cpp \
     main.cpp \
     mapgidroform.cpp \
+    modelmodem.cpp \
     moveauv.cpp \
     widget.cpp
 
@@ -21,6 +22,7 @@ HEADERS += \
     gansdata.h \
     graphform.h \
     mapgidroform.h \
+    modelmodem.h \
     moveauv.h \
     widget.h
 

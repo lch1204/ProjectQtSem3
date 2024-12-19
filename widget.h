@@ -15,6 +15,9 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
     GansData *data = nullptr;
+    QPalette redPalette;
+    QPalette mainPalette;
+    QPalette lightPalette;
 
 private slots:
     void on_setNewObjComboBox_textActivated(const QString &arg1);
@@ -28,5 +31,24 @@ private slots:
     void on_pbSetAUV_toggled(bool checked);
     void on_pbStart_clicked(bool checked);
     void on_checkBoxIdael_clicked(bool checked);
+    void on_distGALSLineEdit_editingFinished();
+
+    void on_speedAUVLineEdit_editingFinished();
+
+    void on_checkBoxShowXY_clicked(bool checked);
+
+
+
+    void on_pushButtonTheme_clicked(bool checked);
+
+    void on_pushButtonAbort_clicked();
+
+    void on_cbReady_clicked(bool checked);
+
+signals:
+    void updateTrajectory(char regim);
+    void updateGALSDist(float d);
+    void updateSpeed(float sp);
+    void modemData(float disp, float exp, float off, float var);
 };
 #endif // WIDGET_H

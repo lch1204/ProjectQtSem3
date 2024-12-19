@@ -10,6 +10,7 @@
 #include <QFile>
 #include "ui_mapgidroform.h"
 #include "moveauv.h"
+#include "modelmodem.h"
 #include "CustomScatterSeries.h"
 
 using namespace QtCharts;
@@ -57,13 +58,17 @@ public:
     void delAUV();
 
     MoveAUV moveAUV;
+    ModelModem modelModem;
 
     QPen aquamarine; // Фиолетовый цвет (RGB: 128, 64, 255)
+    QPen redTriad; // Фиолетовый цвет (RGB: 128, 64, 255)
 
     void updateZeroAxes();
 
-    void startMove(qint8 V);
+    void startMove();
     void stopMove();
+
+    bool checkBoxShowXY = true;
 
 
     void setCustomMarker(const QString &filePath) {
@@ -77,6 +82,10 @@ public:
 
 public slots:
     void tickMove(float X,float Y);
+    void checkXY (bool checked);
+    void endMove(bool checked);
+signals:
+    void newDataAqua(qint8 minX, qint8 minY, qint8 maxX, qint8 maxY);
 };
 
 #endif // MAPGIDROFORM_H
