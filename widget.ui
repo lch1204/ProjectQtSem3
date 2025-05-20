@@ -2,13 +2,34 @@
 <ui version="4.0">
  <class>Widget</class>
  <widget class="QWidget" name="Widget">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1044</width>
-    <height>788</height>
+    <width>1500</width>
+    <height>900</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1500</width>
+    <height>900</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1500</width>
+    <height>900</height>
+   </size>
   </property>
   <property name="cursor">
    <cursorShape>ArrowCursor</cursorShape>
@@ -59,7 +80,7 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1,0">
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <property name="spacing">
@@ -77,31 +98,6 @@
                <property name="bottomMargin">
                 <number>0</number>
                </property>
-               <item>
-                <widget class="QLabel" name="labelErrorStart1">
-                 <property name="font">
-                  <font>
-                   <italic>true</italic>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="labelErrorStart2">
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
                <item>
                 <widget class="QPushButton" name="pbStart">
                  <property name="font">
@@ -131,16 +127,6 @@
              </item>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_5">
-               <item>
-                <widget class="QPushButton" name="pushButtonTheme">
-                 <property name="text">
-                  <string>театральщина</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
                <item alignment="Qt::AlignHCenter">
                 <widget class="QLabel" name="label_6">
                  <property name="text">
@@ -186,6 +172,37 @@
                </item>
               </layout>
              </item>
+             <item>
+              <widget class="QPushButton" name="pushButtonTheme">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>16</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resource/dark.qrc">
+                 <normaloff>:/new/prefix1/night-mode_12301305.png</normaloff>:/new/prefix1/night-mode_12301305.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
            <item>
@@ -197,15 +214,297 @@
               </sizepolicy>
              </property>
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
+             <widget class="QWidget" name="Connection">
+              <attribute name="label">
+               <string>Связь</string>
+              </attribute>
+              <layout class="QVBoxLayout" name="verticalLayout_22">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_21">
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_18">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_5">
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_17">
+                       <item>
+                        <widget class="QLabel" name="label_15">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="text">
+                          <string>Получатель</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_16">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="text">
+                          <string>Отправитель</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QGridLayout" name="gridLayout">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="label_11">
+                         <property name="text">
+                          <string>IP </string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLabel" name="receiver_ip">
+                         <property name="text">
+                          <string>-</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="0">
+                        <widget class="QLabel" name="label_13">
+                         <property name="text">
+                          <string>Порт</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="3" column="1">
+                        <widget class="QLabel" name="sender_port">
+                         <property name="text">
+                          <string>-</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="1">
+                        <widget class="QLabel" name="sender_ip">
+                         <property name="text">
+                          <string>-</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="2" column="0">
+                        <widget class="QLabel" name="label_20">
+                         <property name="text">
+                          <string>IP </string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QLabel" name="receiver_port">
+                         <property name="text">
+                          <string>-</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="3" column="0">
+                        <widget class="QLabel" name="label_18">
+                         <property name="text">
+                          <string>Порт</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_9">
+                     <item>
+                      <widget class="QLabel" name="label_12">
+                       <property name="text">
+                        <string>Частота обмена</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QSpinBox" name="spinBox">
+                       <property name="minimum">
+                        <number>1</number>
+                       </property>
+                       <property name="maximum">
+                        <number>100</number>
+                       </property>
+                       <property name="value">
+                        <number>10</number>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_connect">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <strikeout>false</strikeout>
+                       <stylestrategy>PreferDefault</stylestrategy>
+                      </font>
+                     </property>
+                     <property name="mouseTracking">
+                      <bool>false</bool>
+                     </property>
+                     <property name="focusPolicy">
+                      <enum>Qt::StrongFocus</enum>
+                     </property>
+                     <property name="contextMenuPolicy">
+                      <enum>Qt::DefaultContextMenu</enum>
+                     </property>
+                     <property name="layoutDirection">
+                      <enum>Qt::LeftToRight</enum>
+                     </property>
+                     <property name="autoFillBackground">
+                      <bool>false</bool>
+                     </property>
+                     <property name="text">
+                      <string>Подключить</string>
+                     </property>
+                     <property name="checkable">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="verticalSpacer">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="Line" name="line">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_14">
+                     <property name="font">
+                      <font>
+                       <weight>50</weight>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="layoutDirection">
+                      <enum>Qt::LeftToRight</enum>
+                     </property>
+                     <property name="text">
+                      <string>Диагностика</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QFormLayout" name="formLayout_8">
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label_22">
+                       <property name="text">
+                        <string>Отправлено</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QLabel" name="label_send">
+                       <property name="text">
+                        <string>0</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_19">
+                       <property name="text">
+                        <string>Получено</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QLabel" name="label_recive">
+                       <property name="text">
+                        <string>0</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="Line" name="line_2">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="verticalSpacer_2">
+                     <property name="orientation">
+                      <enum>Qt::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
              <widget class="QWidget" name="setAqua">
               <property name="geometry">
                <rect>
                 <x>0</x>
                 <y>0</y>
                 <width>376</width>
-                <height>470</height>
+                <height>573</height>
                </rect>
               </property>
               <attribute name="label">
@@ -389,7 +688,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>376</width>
-                <height>470</height>
+                <height>573</height>
                </rect>
               </property>
               <attribute name="label">
@@ -426,7 +725,7 @@
                     <item>
                      <widget class="QStackedWidget" name="stackedWidget">
                       <property name="currentIndex">
-                       <number>0</number>
+                       <number>1</number>
                       </property>
                       <widget class="QWidget" name="modem">
                        <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -483,28 +782,29 @@
                           <item row="2" column="1">
                            <widget class="QLineEdit" name="yModemLineEdit"/>
                           </item>
-                          <item row="3" column="0">
+                          <item row="4" column="0">
                            <widget class="QLabel" name="Label_11">
                             <property name="text">
                              <string>Адрес</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="3" column="1">
+                          <item row="4" column="1">
                            <widget class="QLineEdit" name="numberModemLineEdit"/>
                           </item>
-                          <item row="4" column="1">
+                          <item row="6" column="1">
                            <widget class="QPushButton" name="pbSet">
                             <property name="text">
                              <string>Установить</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="5" column="1">
+                          <item row="7" column="1">
                            <widget class="QLabel" name="labelErrorSetModem">
                             <property name="font">
                              <font>
                               <pointsize>11</pointsize>
+                              <weight>50</weight>
                               <italic>true</italic>
                               <bold>false</bold>
                               <underline>false</underline>
@@ -523,7 +823,7 @@
                             </property>
                            </widget>
                           </item>
-                          <item row="6" column="1">
+                          <item row="8" column="1">
                            <widget class="QLabel" name="label_2">
                             <property name="text">
                              <string>Удаление модема, м</string>
@@ -533,24 +833,24 @@
                             </property>
                            </widget>
                           </item>
-                          <item row="7" column="0">
+                          <item row="9" column="0">
                            <widget class="QLabel" name="Label">
                             <property name="text">
                              <string>Номер</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="7" column="1">
+                          <item row="9" column="1">
                            <widget class="QLineEdit" name="numberDelModemLineEdit"/>
                           </item>
-                          <item row="8" column="1">
+                          <item row="10" column="1">
                            <widget class="QPushButton" name="pbDel">
                             <property name="text">
                              <string>Удалить</string>
                             </property>
                            </widget>
                           </item>
-                          <item row="9" column="1">
+                          <item row="11" column="1">
                            <widget class="QLabel" name="labelErrorDelModem">
                             <property name="font">
                              <font>
@@ -563,6 +863,16 @@
                             </property>
                             <property name="alignment">
                              <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="3" column="1">
+                           <widget class="QLineEdit" name="zModemLineEdit"/>
+                          </item>
+                          <item row="3" column="0">
+                           <widget class="QLabel" name="label_9">
+                            <property name="text">
+                             <string>Z</string>
                             </property>
                            </widget>
                           </item>
@@ -596,17 +906,17 @@
                             <item row="1" column="1">
                              <widget class="QLineEdit" name="yAUVLineEdit"/>
                             </item>
-                            <item row="2" column="0">
+                            <item row="3" column="0">
                              <widget class="QLabel" name="speedAUVLabel">
                               <property name="text">
                                <string>Скорость</string>
                               </property>
                              </widget>
                             </item>
-                            <item row="2" column="1">
+                            <item row="3" column="1">
                              <widget class="QLineEdit" name="speedAUVLineEdit"/>
                             </item>
-                            <item row="3" column="1">
+                            <item row="4" column="1">
                              <widget class="QPushButton" name="pbSetAUV">
                               <property name="text">
                                <string>Установить</string>
@@ -615,6 +925,16 @@
                                <bool>true</bool>
                               </property>
                              </widget>
+                            </item>
+                            <item row="2" column="0">
+                             <widget class="QLabel" name="label_10">
+                              <property name="text">
+                               <string>Z</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item row="2" column="1">
+                             <widget class="QLineEdit" name="zAUVLineEdit"/>
                             </item>
                            </layout>
                           </item>
@@ -735,7 +1055,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>376</width>
-                <height>470</height>
+                <height>573</height>
                </rect>
               </property>
               <attribute name="label">
@@ -1377,6 +1697,9 @@
              </disabled>
             </palette>
            </property>
+           <property name="contextMenuPolicy">
+            <enum>Qt::NoContextMenu</enum>
+           </property>
           </widget>
          </item>
         </layout>
@@ -1408,6 +1731,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resource/dark.qrc"/>
+ </resources>
  <connections/>
 </ui>

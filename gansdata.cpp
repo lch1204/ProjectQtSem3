@@ -5,7 +5,7 @@ GansData::GansData(QObject *parent)
     : QObject{parent}
 {}
 
-bool GansData::addModem(qint8 x, qint8 y, quint8 address)
+bool GansData::addModem(double x, double y, quint8 address)
 {
     if ((x <= height) && (y <= width))
     {
@@ -17,7 +17,7 @@ bool GansData::addModem(qint8 x, qint8 y, quint8 address)
         return false;
 }
 
-void GansData::addModemVector(qint8 x, qint8 y, qint8 address)
+void GansData::addModemVector(double x, double y, qint8 address)
 {
     numberFix += 1;
     qDebug() << "nomberFix" << numberFix;

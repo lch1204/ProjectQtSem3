@@ -48,9 +48,9 @@ public:
     MoveVer moveVer{up};
 public slots:
     void setTimeModel(QString t);
-    void updateBorder(qint8 minX, qint8 minY, qint8 maxX, qint8 maxY);
+    void updateBorder(double minX, double minY, double maxX, double maxY);
     void tick();
-    void setAUV_XY(qint8 setX, qint8 setY);
+    void setAUV_XY(double setX, double setY);
     void tipeTrajectory(char tr);
     void updateGALSDist(float d);
     void setSpeed(float sp);

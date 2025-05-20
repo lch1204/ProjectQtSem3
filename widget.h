@@ -5,6 +5,7 @@
 #include <QTimer>
 #include "ui_widget.h"
 #include "gansdata.h"
+#include "Connection/pc_protocol.h"
 
 
 class Widget : public QWidget, private Ui::Widget
@@ -19,6 +20,20 @@ public:
     QPalette mainPalette;
     QPalette lightPalette;
 
+protected:
+    const QString ConfigFile = "../../Connection/protocols.conf";
+    Pult::PC_Protocol *protocol = nullptr;
+    void tick();
+    int t = 10;
+    int counter_resive = 0;
+    int counter_send = 0;
+    QTimer timer;
+
+    bool startModeling = false;
+
+    void sendData();
+    void recieveData();
+
 private slots:
     void on_setNewObjComboBox_textActivated(const QString &arg1);
 
@@ -27,7 +42,7 @@ private slots:
     void on_pbUpdate_clicked();
     void on_pbSet_clicked();
     void on_pbDel_clicked();
-    void delModemMap(quint8 x, quint8 y);
+    void delModemMap(double x, double y);
     void on_pbSetAUV_toggled(bool checked);
     void on_pbStart_clicked(bool checked);
     void on_checkBoxIdael_clicked(bool checked);
@@ -47,6 +62,10 @@ private slots:
 
     void on_verticalSlider_sliderMoved(int position);
 
+
+    void on_pushButton_connect_clicked(bool checked);
+
+    void on_spinBox_valueChanged(int arg1);
 
 signals:
     void updateTrajectory(char regim);

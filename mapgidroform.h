@@ -1,22 +1,16 @@
-#ifndef MAPGIDROFORM_H
-#define MAPGIDROFORM_H
+#ifndef MapGidroForm_H
+#define MapGidroForm_H
 
 #include <QWidget>
-#include <QtCharts>
-#include <QPen>
-#include <QColor>
-#include <QSvgRenderer>
-#include <QPainter>
-#include <QFile>
 #include "ui_mapgidroform.h"
-#include "moveauv.h"
-#include "modelmodem.h"
-#include "CustomScatterSeries.h"
+#include <QtCharts>
+#include <QHBoxLayout>
 
-using namespace QtCharts;
+namespace Ui {
+class MapGidroForm;
+}
 
-
-class MapGidroForm : public QWidget, public Ui::MapGidroForm
+class MapGidroForm : public QWidget
 {
     Q_OBJECT
 
@@ -24,68 +18,36 @@ public:
     explicit MapGidroForm(QWidget *parent = nullptr);
     ~MapGidroForm();
 
-public:
-    QChartView * chartView;
-    QChart *chart = nullptr;
-    QHBoxLayout *hLayout;
 
+    public:
+    Ui::MapGidroForm *ui;
+    QHBoxLayout *hLayout;
+    QChart *chart = nullptr;
+    QSplineSeries *trajectoryAUVreal = nullptr;
+    QSplineSeries *trajectoryAUVekf = nullptr;
+    QScatterSeries *auvPositionReal = nullptr;
+    QScatterSeries *auvPositionEkf = nullptr;
+    QScatterSeries *beaconPositionReal = nullptr;
+    QLineSeries *circleSeries = nullptr;
+    QChartView * chartView;
     QValueAxis *xAxis = nullptr;
     QValueAxis *yAxis = nullptr;
-    QSplineSeries *trajectoryAUV = nullptr;
+    QGraphicsPolygonItem * velocityArrowHead = nullptr;
+    QLineSeries * velocityVectorSeries = nullptr;
+    QGraphicsPolygonItem * velocityArrowHeadReal = nullptr;
+    QLineSeries * velocityVectorSeriesReal = nullptr;
 
-    QLineSeries *upperSeries = nullptr;
-    QLineSeries *lowerSeries = nullptr;
-    QAreaSeries *areaRect = nullptr;
-
-    QGraphicsLineItem *zeroAxisX = nullptr;
-    QGraphicsLineItem *zeroAxisY = nullptr;
-
-    QPointF line_start_point ;
-
-
-    QGraphicsPixmapItem *modemItem = nullptr;
-
-    QScatterSeries *modemPosition = nullptr;
-    QScatterSeries *auvPosition = nullptr;
-
-    QGraphicsItemGroup *group = nullptr;
-
-    void setAuqa(quint8 heightX,quint8 widthY);
-    void addMarker(quint8 x,quint8 y);
-    void delMarker(quint8 x,quint8 y);
-
-    void addAUV(quint8 x,quint8 y);
-    void delAUV();
-
-    MoveAUV moveAUV;
-    ModelModem modelModem;
-
-    QPen aquamarine; // Фиолетовый цвет (RGB: 128, 64, 255)
-    QPen redTriad; // Фиолетовый цвет (RGB: 128, 64, 255)
-
-    void updateZeroAxes();
-
-    void startMove();
-    void stopMove();
-
-    bool checkBoxShowXY = true;
-
-
-    void setCustomMarker(const QString &filePath) {
-        QPixmap pixmap(filePath);
-        m_markerPixmap = pixmap.scaled(25, 25, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    }
-
-    QPixmap m_markerPixmap;
-
-    void clearGroup(QGraphicsItemGroup* group);
+    double x_auv_real = 0;
+    double y_auv_real = 0;
+    double x_auv_ekf = 0;
+    double y_auv_ekf = 0;
 
 public slots:
-    void tickMove(float X,float Y);
-    void checkXY (bool checked);
-    void endMove(bool checked);
-signals:
-    void newDataAqua(qint8 minX, qint8 minY, qint8 maxX, qint8 maxY);
+    void setXY_auv_real(double x, double y);
+    void setXY_auv_ekf(double x, double y);
+    void setCircle(double r);
+    void setVelocityVector_ekf(double vx, double vy);
+    void setVelocityVector_real(double vx, double vy);
 };
 
-#endif // MAPGIDROFORM_H
+#endif // MapGidroForm_H

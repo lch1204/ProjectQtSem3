@@ -6,8 +6,8 @@
 
 struct Modem
 {
-    qint8 x;
-    qint8 y;
+    double x;
+    double y;
     qint8 address;
     quint8 nomberFix;
 };
@@ -26,24 +26,24 @@ public:
         return counter;
     }
 
-    void setAuqa(quint8 heightX,quint8 widthY)
+    void setAuqa(double heightX,double widthY)
     {
         height = heightX;
         width = widthY;
     }
 
-    bool addModem(qint8 x, qint8 y,quint8 address);
+    bool addModem(double x, double y,quint8 address);
 
-    quint8 height = 0;
-    quint8 width = 0;
+    double height = 0;
+    double width = 0;
 
     QVector<Modem> modems;
 
-    void addModemVector(qint8 x, qint8 y, qint8 address);
+    void addModemVector(double x, double y, qint8 address);
     bool delModemVector(quint8 number);
 
 signals:
-    void dataModemDel(quint8 x, quint8 y);
+    void dataModemDel(double x, double y);
 };
 
 #endif // GANSDATA_H

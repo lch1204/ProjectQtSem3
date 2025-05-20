@@ -36,20 +36,24 @@ Widget::Widget(QWidget *parent)
     LineEditVariation->setText("1");
     LineEditTime->setText("5");
 
+    pushButtonTheme->setStyleSheet("QPushButton { border: none; outline: none; }");
+    setFixedSize(1500, 900);
+
+
     on_pbUpdate_clicked();
     on_trajectoryComboBox_textActivated(0);
     connect(data, &GansData::dataModemDel, this, &Widget::delModemMap);
-    connect(this, &Widget::updateTrajectory, &mapPage->moveAUV, &MoveAUV::tipeTrajectory);
-    connect(this, &Widget::updateGALSDist, &mapPage->moveAUV, &MoveAUV::updateGALSDist);
-    connect(this, &Widget::updateSpeed, &mapPage->moveAUV, &MoveAUV::setSpeed);
-    connect(&mapPage->moveAUV, &MoveAUV::endMove, this, &Widget::on_pbStart_clicked);
-    connect(&mapPage->moveAUV, &MoveAUV::endMove, mapPage, &MapGidroForm::endMove);
-    connect(checkBoxShowXY, &QCheckBox::clicked, mapPage, &MapGidroForm::checkXY);
-    connect(LineEditTime, &QLineEdit::textChanged, &mapPage->moveAUV, &MoveAUV::setTimeModel);
-    connect(LineEditTime, &QLineEdit::textChanged, graphPage, &GraphForm::setTime);
-    connect(this, &Widget::modemData, &mapPage->modelModem, &ModelModem::modemData);
-    connect(&mapPage->modelModem, &ModelModem::setTD, graphPage, &GraphForm::setTD);
-    connect(this,&Widget::setModemForCalc, &mapPage->modelModem, &ModelModem::setModem);
+//    connect(this, &Widget::updateTrajectory, &mapPage->moveAUV, &MoveAUV::tipeTrajectory);
+//    connect(this, &Widget::updateGALSDist, &mapPage->moveAUV, &MoveAUV::updateGALSDist);
+//    connect(this, &Widget::updateSpeed, &mapPage->moveAUV, &MoveAUV::setSpeed);
+//    connect(&mapPage->moveAUV, &MoveAUV::endMove, this, &Widget::on_pbStart_clicked);
+//    connect(&mapPage->moveAUV, &MoveAUV::endMove, mapPage, &MapGidroForm::endMove);
+//    connect(checkBoxShowXY, &QCheckBox::clicked, mapPage, &MapGidroForm::checkXY);
+//    connect(LineEditTime, &QLineEdit::textChanged, &mapPage->moveAUV, &MoveAUV::setTimeModel);
+//    connect(LineEditTime, &QLineEdit::textChanged, graphPage, &GraphForm::setTime);
+//    connect(this, &Widget::modemData, &mapPage->modelModem, &ModelModem::modemData);
+//    connect(&mapPage->modelModem, &ModelModem::setTD, graphPage, &GraphForm::setTD);
+//    connect(this,&Widget::setModemForCalc, &mapPage->modelModem, &ModelModem::setModem);
     stackedWidget->setCurrentIndex(0);
 
     redPalette.setColor(QPalette::Button, Qt::red);
@@ -86,12 +90,44 @@ Widget::Widget(QWidget *parent)
 
     setPalette(lightPalette);
 
-    mapPage->moveAUV.setTimeModel("5");
+//    mapPage->moveAUV.setTimeModel("5");
     graphPage->setTime("5");
+
+    ///прокидываем связь
+    protocol = new Pult::PC_Protocol(ConfigFile,"pult");
+    qDebug() << "---start exchange";
+
+    sender_ip->setText(protocol->ip_sender().toString());
+    sender_port->setNum(protocol->port_sender());
+    receiver_port->setNum(protocol->port_receiver());
+    receiver_ip->setText(protocol->ip_receiver().toString());
+    qDebug() << "sender ip " << protocol->ip_sender();
+
+    connect(&timer, &QTimer::timeout, this, &Widget::tick);
+
+
+
 }
 
 Widget::~Widget()
 {
+}
+
+void Widget::tick()
+{
+    label_send->setNum(protocol->udpProtocol->counter_s);
+    sendData();
+    recieveData();
+}
+
+void Widget::sendData()
+{
+    protocol->send_data.data.startAlgorithm = startModeling;
+}
+
+void Widget::recieveData()
+{
+
 }
 
 void Widget::on_setNewObjComboBox_textActivated(const QString &arg1)
@@ -170,8 +206,8 @@ void Widget::on_pbUpdate_clicked()
     QString width = longLineEdit->text();
     qDebug() << "width" << width;
     data->setAuqa(height.toUInt(), width.toUInt());
-    mapPage->setAuqa(height.toUInt(), width.toUInt());
-    mapPage->updateZeroAxes();
+//    mapPage->setAuqa(height.toUInt(), width.toUInt());
+//    mapPage->updateZeroAxes();
 }
 
 
@@ -186,7 +222,7 @@ void Widget::on_pbSet_clicked()
         if (addMod)
         {
             log->appendPlainText("addModem: x = " + x + "; y = " + y + "; address = " + address +"; number = " + QString::number(data->numberFix));
-            mapPage->addMarker(x.toInt(), y.toInt());
+//            mapPage->addMarker(x.toInt(), y.toInt());
             labelErrorSetModem->setText("Установлено!");
             labelErrorDelModem->setText("");
             labelErrorSetModem->setStyleSheet("color: black;");
@@ -230,9 +266,9 @@ void Widget::on_pbDel_clicked()
     }
 }
 
-void Widget::delModemMap(quint8 x, quint8 y)
+void Widget::delModemMap(double x, double y)
 {
-    mapPage->delMarker(x,y);
+//    mapPage->delMarker(x,y);
 }
 
 
@@ -244,16 +280,13 @@ void Widget::on_pbSetAUV_toggled(bool checked)
     QString y = yAUVLineEdit->text();
     if (checked)
     {
-        labelErrorStart1->setText("");
-        labelErrorStart2->setText("");
-
         qDebug() << "checked" << checked;
-        mapPage->addAUV(x.toInt(),y.toInt());
+//        mapPage->addAUV(x.toInt(),y.toInt());
     }
     else
     {
         qDebug() << "checked" << checked;
-        mapPage->delAUV();
+//        mapPage->delAUV();
     }
     ///для передачи в модель
     emit setModemForCalc(x.toFloat(), y.toFloat());
@@ -271,7 +304,7 @@ void Widget::on_pbStart_clicked(bool checked)
         {
             qDebug() << "start";
             QString V = speedAUVLineEdit->text();
-            mapPage->startMove();
+//            mapPage->startMove();
             pbStart->setText("Стоп");
             pbSetAUV->setEnabled(false);
             pbStart->setPalette(redPalette);
@@ -279,10 +312,6 @@ void Widget::on_pbStart_clicked(bool checked)
         }
         else
         {
-            labelErrorStart1->setStyleSheet("color: red;");
-            labelErrorStart1->setText("Дурак,");
-            labelErrorStart2->setStyleSheet("color: red;");
-            labelErrorStart2->setText("аппарат вначале задай");
             pbStart->setChecked(false);
             pbSetAUV->setEnabled(true);
             pbStart->setPalette(tabWidget->palette());
@@ -290,7 +319,7 @@ void Widget::on_pbStart_clicked(bool checked)
     }
     else
     {
-        mapPage->stopMove();
+//        mapPage->stopMove();
         pbStart->setText("Старт");
         pbStart->setChecked(false);
         pbSetAUV->setEnabled(true);
@@ -305,11 +334,11 @@ void Widget::on_checkBoxIdael_clicked(bool checked)
 {
     if (checked)
     {
-        mapPage->trajectoryAUV->show();
+//        mapPage->trajectoryAUV->show();
     }
     else
     {
-        mapPage->trajectoryAUV->hide();
+//        mapPage->trajectoryAUV->hide();
     }
 }
 
@@ -332,13 +361,13 @@ void Widget::on_checkBoxShowXY_clicked(bool checked)
 {
     if (checked)
     {
-        mapPage->zeroAxisX->show();
-        mapPage->zeroAxisY->show();
+//        mapPage->zeroAxisX->show();
+//        mapPage->zeroAxisY->show();
     }
     else
     {
-        mapPage->zeroAxisX->hide();
-        mapPage->zeroAxisY->hide();
+//        mapPage->zeroAxisX->hide();
+//        mapPage->zeroAxisY->hide();
     }
 }
 
@@ -390,7 +419,7 @@ void Widget::on_pushButtonAbort_clicked()
     }
     pbSetAUV->setChecked(false);
     graphPage->clearTD();
-    mapPage->modelModem.timeCounter = 0;
+//    mapPage->modelModem.timeCounter = 0;
 }
 
 
@@ -398,13 +427,17 @@ void Widget::on_cbReady_clicked(bool checked)
 {
     if (checked)
     {
-        QString disp = LineEditDispersion->text();
-        QString exp  = LineEditExpection->text();
-        QString off  = LineEditOffset->text();
-        QString var  = LineEditVariation->text();
-        emit modemData(disp.toFloat(), exp.toFloat(), off.toFloat(), var.toFloat());
+//        QString disp = LineEditDispersion->text();
+//        QString exp  = LineEditExpection->text();
+//        QString off  = LineEditOffset->text();
+//        QString var  = LineEditVariation->text();
+//        emit modemData(disp.toFloat(), exp.toFloat(), off.toFloat(), var.toFloat());
+        startModeling = true;
 
-
+    }
+    else
+    {
+        startModeling = false;
     }
 }
 
@@ -415,4 +448,32 @@ void Widget::on_verticalSlider_sliderMoved(int position)
     graphPage->dAxis->setRange(0,position);
 }
 
+
+
+void Widget::on_pushButton_connect_clicked(bool checked)
+{
+    if (checked)
+    {
+        pushButton_connect->setText("Отключить");
+        timer.start(1000/t);
+        protocol->udpProtocol->frequency = t;
+        protocol->startExchange();
+    }
+    else
+    {
+        pushButton_connect->setText("Подключить");
+        timer.stop();
+        counter_resive = 0;
+        counter_send = 0;
+        protocol->stopExhange();
+    }
+}
+
+
+void Widget::on_spinBox_valueChanged(int arg1)
+{
+    t = arg1;
+    counter_resive = 0;
+    counter_send = 0;
+}
 

@@ -173,7 +173,7 @@ void MoveAUV::setTimeModel(QString t)
     timeModel->setInterval(t.toFloat()*1000);
 }
 
-void MoveAUV::updateBorder(qint8 minX, qint8 minY, qint8 maxX, qint8 maxY)
+void MoveAUV::updateBorder(double minX, double minY, double maxX, double maxY)
 {
     Xmin = minX;
     Xmax = maxX;
@@ -203,7 +203,7 @@ void MoveAUV::tick()
     emit updateAUV(Y, X);
 }
 
-void MoveAUV::setAUV_XY(qint8 setX, qint8 setY)
+void MoveAUV::setAUV_XY(double setX, double setY)
 {
 
     Y =fixX = setX;

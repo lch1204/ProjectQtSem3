@@ -1,282 +1,206 @@
 #include "mapgidroform.h"
+#include "ui_mapgidroform.h"
 
 MapGidroForm::MapGidroForm(QWidget *parent)
     : QWidget(parent)
+    , ui(new Ui::MapGidroForm)
 {
-    setupUi(this);
-
-    aquamarine = QPen(QColor("#20B2AA"), 2,  Qt::SolidLine);
-    redTriad = QPen(QColor("#FD2E33"), 2,  Qt::SolidLine);
-
-    // Инициализация графика и виджета
+    ui->setupUi(this);
     chart = new QChart();
     chartView = new QChartView(this);
-    QHBoxLayout *hLayout = new QHBoxLayout(this);
+    hLayout = new QHBoxLayout();
     hLayout->addWidget(chartView);
     setLayout(hLayout);
     chartView->setChart(chart);
 
-    // QGraphicsItemGroup *group = new QGraphicsItemGroup();
-    group = chart->scene()->createItemGroup({});
-    // chart->scene()->addItem(group);
-
-    // Настройка осей
+    chartView->setChart(chart);
     xAxis = new QValueAxis(chart);
     yAxis = new QValueAxis(chart);
-    xAxis->setRange(-0, 100);
+
+    trajectoryAUVreal = new QSplineSeries(chart);
+    auvPositionReal = new QScatterSeries(chart);
+
+    trajectoryAUVekf = new QSplineSeries(chart);
+    auvPositionEkf = new QScatterSeries(chart);
+
+    beaconPositionReal = new QScatterSeries(chart);
+    velocityVectorSeries = new QLineSeries(chart);  // Серия для вектора скорости
+    velocityVectorSeriesReal = new QLineSeries(chart);  // Серия для вектора скорости
+
+    circleSeries = new QLineSeries(chart);  // Инициализация новой серии для окружности
+
+    // circleSeries->setMarkerShape(QScatterSeries::MarkerShapeCircle);
+    circleSeries->setBrush(QBrush(Qt::blue));  // Цвет окружности
+    velocityVectorSeries->setPen(QPen(Qt::black, 2));  // Настройка стиля линии вектора скорости
+
+    chart->addSeries(trajectoryAUVreal);
+    chart->addSeries(auvPositionReal);
+    chart->addSeries(trajectoryAUVekf);
+    chart->addSeries(auvPositionEkf);
+    chart->addSeries(beaconPositionReal);
+    chart->addSeries(circleSeries);
+    chart->addSeries(velocityVectorSeries);  // Добавляем серию для вектора скорости
+    chart->addSeries(velocityVectorSeriesReal);  // Добавляем серию для вектора скорости
+
+    xAxis->setRange(-100,100);
     xAxis->setTickCount(10);
     xAxis->setTitleText("X, m");
-    yAxis->setRange(-0, 100);
+
+
+    yAxis->setRange(-100,100);
     yAxis->setTickCount(10);
     yAxis->setTitleText("Y, m");
 
     chart->addAxis(xAxis, Qt::AlignLeft);
     chart->addAxis(yAxis, Qt::AlignBottom);
 
-    // Серии
-    auvPosition = new QScatterSeries(chart);
-    modemPosition = new QScatterSeries(chart);
-    chart->addSeries(modemPosition);
-    chart->addSeries(auvPosition);
+    trajectoryAUVreal->attachAxis(xAxis);
+    trajectoryAUVreal->attachAxis(yAxis);
+    auvPositionReal->attachAxis(xAxis);
+    auvPositionReal->attachAxis(yAxis);
+    trajectoryAUVekf->attachAxis(xAxis);
+    trajectoryAUVekf->attachAxis(yAxis);
+    auvPositionEkf->attachAxis(xAxis);
+    auvPositionEkf->attachAxis(yAxis);
+    beaconPositionReal->attachAxis(xAxis);
+    beaconPositionReal->attachAxis(yAxis);
+    circleSeries->attachAxis(xAxis);
+    circleSeries->attachAxis(yAxis);
+    velocityVectorSeries->attachAxis(xAxis);  // Привязка серии вектора скорости к осям
+    velocityVectorSeries->attachAxis(yAxis);
+    velocityVectorSeriesReal->attachAxis(xAxis);  // Привязка серии вектора скорости к осям
+    velocityVectorSeriesReal->attachAxis(yAxis);
 
-    qDebug() << "xAxis"<<modemPosition->attachAxis(yAxis);
-    qDebug() << "yAxis"<<modemPosition->attachAxis(xAxis);
-
-    auvPosition->attachAxis(xAxis);
-    auvPosition->attachAxis(yAxis);
-
-    // Настройка внешнего вида
-    // chart->setBackgroundBrush(QBrush(QColor(53, 53, 53)));
-    // chart->setTitleFont(QFont());
-    chart->setPlotAreaBackgroundVisible(true);
-    chart->layout()->setContentsMargins(0, 0, 0, 0);
-    chart->setMargins(QMargins(0, 0, 0, 0));
+    chart->layout()->setContentsMargins(0,0,0,0);
     chartView->setInteractive(true);
     chartView->setDragMode(QGraphicsView::ScrollHandDrag);
+    chartView->setMinimumSize(600,600);
     chartView->setRubberBand(QChartView::RectangleRubberBand);
 
-    QFont axisFont = xAxis->titleFont();
-    axisFont.setPointSize(8);
-    xAxis->setTitleFont(axisFont);
-    yAxis->setTitleFont(axisFont);
-    xAxis->setLabelsFont(QFont("Times New Roman", 10));
-    yAxis->setLabelsFont(QFont("Times New Roman", 10));
-    xAxis->setTitleFont(QFont("Times New Roman", 10));
-    yAxis->setTitleFont(QFont("Times New Roman", 10));
-    xAxis->setTitleBrush(QBrush(Qt::black));
-    yAxis->setTitleBrush(QBrush(Qt::black));
-    xAxis->setLabelsBrush(QBrush(Qt::black));
-    yAxis->setLabelsBrush(QBrush(Qt::black));
-    xAxis->setGridLineColor(Qt::gray);
-    yAxis->setGridLineColor(Qt::gray);
-    chart->legend()->hide();
-
-    // Линии для нулевых осей
-    zeroAxisX = new QGraphicsLineItem();
-    zeroAxisY = new QGraphicsLineItem();
-    zeroAxisX->setPen(aquamarine);
-    zeroAxisY->setPen(aquamarine);
-    chart->scene()->addItem(zeroAxisX);
-    chart->scene()->addItem(zeroAxisY);
-
-    zeroAxisX->setZValue(0);
-    zeroAxisY->setZValue(1);
-    group->setZValue(2);
-
-    QRectF plotArea = chart->plotArea();
-
-    chart->setPlotArea(QRectF(plotArea.x(), plotArea.y(), plotArea.width(), plotArea.height())); // Уменьшаем отступы.
-
-    upperSeries = new QLineSeries();
-    lowerSeries = new QLineSeries();
-    areaRect = new QAreaSeries();
-    chart->addSeries(areaRect);
-
-    areaRect->setLowerSeries(lowerSeries);
-    areaRect->setUpperSeries(upperSeries);
-
-
-    areaRect->attachAxis(xAxis);
-    areaRect->attachAxis(yAxis);
-
-    auvPosition->setMarkerShape(QScatterSeries::MarkerShapeCircle);
-    auvPosition->setMarkerSize(17);
-    auvPosition->setPen(redTriad);
-    auvPosition->setBrush(QBrush(QColor(253, 46, 51, 50)));
-
-
-    updateZeroAxes();
-    connect(&moveAUV, &MoveAUV::updateAUV, this, &MapGidroForm::tickMove);
-    connect(this, &MapGidroForm::newDataAqua, &moveAUV, &MoveAUV::updateBorder);
-    connect(xAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
-    connect(yAxis, &QValueAxis::rangeChanged, this, &MapGidroForm::updateZeroAxes);
-    connect(&moveAUV, &MoveAUV::updateAUV, &modelModem, &ModelModem::setAUV);
-
-    trajectoryAUV = new QSplineSeries(chart);
-    chart->addSeries(trajectoryAUV);
-    trajectoryAUV->attachAxis(xAxis);
-    trajectoryAUV->attachAxis(yAxis);
-    trajectoryAUV->setPen(redTriad);
+    beaconPositionReal->append(5,5);//здесь на графике отображаю
+    // Инициализация графических элементов для наконечника стрелки
+    velocityArrowHead = new QGraphicsPolygonItem();
+    chartView->scene()->addItem(velocityArrowHead);
+    velocityArrowHeadReal = new QGraphicsPolygonItem();
+    chartView->scene()->addItem(velocityArrowHeadReal);
 }
 
 MapGidroForm::~MapGidroForm()
 {
-
+    delete ui;
 }
 
-void MapGidroForm::setAuqa(quint8 heightX, quint8 widthY)
+void MapGidroForm::setXY_auv_real(double x, double y)
 {
-    // if (areaRect)
-    // chart->removeSeries(areaRect);
-    float delta = 0;
-    upperSeries->clear();
-    lowerSeries->clear();
-    qDebug() << "widthY" << widthY;
-    qDebug() << "heightX" << heightX;
-    upperSeries->append(0-delta,heightX+delta);
-    upperSeries->append(widthY+delta,heightX+delta);
-    lowerSeries->append(0+delta,0-delta);
-    lowerSeries->append(widthY-delta,0-delta);
-
-    areaRect->setPen(aquamarine); // Синяя рамка
-    areaRect->setBrush(QBrush(QColor(32, 178, 170, 50))); // Полупрозрачная заливка
-    emit newDataAqua(0, 0,heightX, widthY);
+    x_auv_real = x;
+    y_auv_real = y;
+    trajectoryAUVreal->append(x,y);
+    auvPositionReal->clear();
+    auvPositionReal->append(x,y);
 }
 
-void MapGidroForm::addMarker(quint8 x, quint8 y)
+void MapGidroForm::setXY_auv_ekf(double x, double y)
 {
-    modemPosition->append(y,x);
+    x_auv_ekf = x;
+    y_auv_ekf = y;
+    trajectoryAUVekf->append(x,y);
+    auvPositionEkf->clear();
+    auvPositionEkf->append(x,y);
+}
 
-    QImage markerImage("../../pictures/stingray_11064643.png");
+void MapGidroForm::setCircle(double r)
+{
+    circleSeries->clear();  // Удаление старой окружности
 
-    for (const QPointF& point : modemPosition->points()) {
-        // QGraphicsPixmapItem* item1 = new QGraphicsPixmapItem(QPixmap("../../pictures/superhero_2503243.png"));
-        CustomMarker* marker = new CustomMarker(markerImage.transformed(QTransform::fromScale(0.08, 0.08)), point, chart);
-        if (group) {
-            group->addToGroup(marker);
-        } else {
-            qDebug() << "Group is null!";
-        }
+    // Отрисовка новой окружности
+    const int numPoints = 100;  // Количество точек для аппроксимации окружности
+    const double centerX = 10.0;
+    const double centerY = 10.0;
+
+    for (int i = 0; i < numPoints; ++i) {
+        double angle = 2 * M_PI * i / numPoints;
+        double x = centerX + r * cos(angle);
+        double y = centerY + r * sin(angle);
+        circleSeries->append(x, y);
     }
-
+    double x = centerX + r * cos(0);
+    double y = centerY + r * sin(0);
+    circleSeries->append(x, y);
 }
 
-void MapGidroForm::delMarker(quint8 x, quint8 y)
+void MapGidroForm::setVelocityVector_ekf(double vx, double vy) {
+    const double centerX = x_auv_ekf;  // Центр окружности
+    const double centerY = y_auv_ekf;
+
+    // Масштабирующий коэффициент для длины стрелки
+    const double scale = 1.1;  // Можно настроить в зависимости от желаемой длины
+
+    // Вычисляем конечную точку стрелки
+    double endX = centerX + vx * scale;
+    double endY = centerY + vy * scale;
+
+    // Очищаем старую стрелку
+    velocityVectorSeries->clear();
+    velocityArrowHead->setPolygon(QPolygonF());  // Очищаем наконечник
+
+    // Рисуем линию вектора скорости
+    velocityVectorSeries->append(centerX, centerY);
+    velocityVectorSeries->append(endX, endY);
+
+    // Рисуем наконечник стрелки
+    const double arrowSize = 5.0;  // Размер наконечника
+    QLineF line(centerX, centerY, endX, endY);
+    double angle = std::atan2(-line.dy(), line.dx());  // Угол наклона линии
+
+    // Создаем полигон для наконечника стрелки
+    QPolygonF arrowHead;
+    arrowHead.append(QPointF(0, 0));
+    arrowHead.append(QPointF(-arrowSize, -arrowSize / 2));
+    arrowHead.append(QPointF(-arrowSize, arrowSize / 2));
+
+    // Трансформируем полигон в соответствии с углом наклона линии
+    QTransform transform;
+    transform.translate(endX, endY);
+    transform.rotateRadians(-angle);
+    velocityArrowHead->setPolygon(transform.map(arrowHead));
+    velocityArrowHead->setBrush(QBrush(Qt::black));  // Цвет наконечника
+}
+
+void MapGidroForm::setVelocityVector_real(double vx, double vy)
 {
-    modemPosition->remove(y,x);
+    const double centerX = x_auv_real;  // Центр окружности
+    const double centerY = y_auv_real;
 
-    QImage markerImage("../../pictures/stingray_11064643.png");
+    // Масштабирующий коэффициент для длины стрелки
+    const double scale = 1.1;  // Можно настроить в зависимости от желаемой длины
 
-    clearGroup(group);
-    if (!modemPosition->points().isEmpty())
-    {
-        for (const QPointF& point : modemPosition->points()) {
-            CustomMarker* marker = new CustomMarker(markerImage.transformed(QTransform::fromScale(0.08, 0.08)), point, chart);
-            group->addToGroup(marker);
-            qDebug() << "del";
-        }
-    }
+    // Вычисляем конечную точку стрелки
+    double endX = centerX + vx * scale;
+    double endY = centerY + vy * scale;
+
+    // Очищаем старую стрелку
+    velocityVectorSeriesReal->clear();
+    velocityArrowHeadReal->setPolygon(QPolygonF());  // Очищаем наконечник
+
+    // Рисуем линию вектора скорости
+    velocityVectorSeriesReal->append(centerX, centerY);
+    velocityVectorSeriesReal->append(endX, endY);
+
+    // Рисуем наконечник стрелки
+    const double arrowSize = 5.0;  // Размер наконечника
+    QLineF line(centerX, centerY, endX, endY);
+    double angle = std::atan2(-line.dy(), line.dx());  // Угол наклона линии
+
+    // Создаем полигон для наконечника стрелки
+    QPolygonF arrowHead;
+    arrowHead.append(QPointF(0, 0));
+    arrowHead.append(QPointF(-arrowSize, -arrowSize / 2));
+    arrowHead.append(QPointF(-arrowSize, arrowSize / 2));
+
+    // Трансформируем полигон в соответствии с углом наклона линии
+    QTransform transform;
+    transform.translate(endX, endY);
+    transform.rotateRadians(-angle);
+    velocityArrowHeadReal->setPolygon(transform.map(arrowHead));
+    velocityArrowHeadReal->setBrush(QBrush(Qt::black));  // Цвет наконечника
 }
-
-void MapGidroForm::addAUV(quint8 x, quint8 y)
-{
-    auvPosition->append(y,x);
-    moveAUV.setAUV_XY(y,x);
-}
-
-void MapGidroForm::delAUV()
-{
-    auvPosition->clear();
-    trajectoryAUV->clear();
-}
-
-void MapGidroForm::updateZeroAxes()
-{
-    if (checkBoxShowXY)
-    {
-        // Получаем текущие диапазоны осей
-        double yMin = xAxis->min();
-        double yMax = xAxis->max();
-        double xMin = yAxis->min();
-        double xMax = yAxis->max();
-
-        QRectF plotArea = chart->plotArea();
-
-        // Привязываем нулевую линию оси X к масштабу
-        if (yMin <= 0 && yMax >= 0) {
-            double yZeroPos = plotArea.bottom() - (plotArea.height() * (0 - yMin) / (yMax - yMin));
-            zeroAxisY->setLine(plotArea.left(), yZeroPos, plotArea.right(), yZeroPos);
-            zeroAxisY->setVisible(true);
-        } else {
-            zeroAxisY->setVisible(false); // Скрываем линию, если 0 не входит в диапазон оси Y
-        }
-
-        // Привязываем нулевую линию оси Y к масштабу
-        if (xMin <= 0 && xMax >= 0) {
-            double xZeroPos = plotArea.left() + (plotArea.width() * (0 - xMin) / (xMax - xMin));
-            zeroAxisX->setLine(xZeroPos, plotArea.top(), xZeroPos, plotArea.bottom());
-            zeroAxisX->setVisible(true);
-        } else {
-            zeroAxisX->setVisible(false); // Скрываем линию, если 0 не входит в диапазон оси X
-        }
-
-        QImage markerImage("../../pictures/stingray_11064643.png");
-
-        if (!modemPosition->points().isEmpty())
-        {
-            clearGroup(group);
-            for (const QPointF& point : modemPosition->points()) {
-                CustomMarker* marker = new CustomMarker(markerImage.transformed(QTransform::fromScale(0.08, 0.08)), point, chart);
-                group->addToGroup(marker);
-                qDebug() << "add";
-            }
-        }
-    }
-}
-
-
-
-void MapGidroForm::startMove()
-{
-    moveAUV.time->start();
-    moveAUV.timeModel->start();
-    // modelModem.timeEl->restart();
-    modelModem.timeTick->start();
-    qDebug() << "timer start";
-}
-
-void MapGidroForm::stopMove()
-{
-    moveAUV.time->stop();
-    modelModem.timeTick->stop();
-}
-
-void MapGidroForm::clearGroup(QGraphicsItemGroup *group) {
-
-    if (!group) return;
-    // Удаляем все дочерние элементы из сцены
-    for (QGraphicsItem* item : group->childItems()) {
-        group->scene()->removeItem(item); // Удаляем элемент из сцены
-        delete item; // Удаляем сам объект
-    }
-}
-
-void MapGidroForm::tickMove(float X, float Y)
-{
-    trajectoryAUV->append(X,Y);
-    auvPosition->clear();
-    auvPosition->append(X,Y);
-}
-
-void MapGidroForm::checkXY(bool checked)
-{
-    checkBoxShowXY = checked;
-    updateZeroAxes();
-}
-
-void MapGidroForm::endMove(bool checked)
-{
-    // modelModem.timeEl.;
-    modelModem.timeTick->stop();
-}
-
