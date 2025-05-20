@@ -1,5 +1,5 @@
-QT       += core gui charts svg
-
+QT += core gui charts svg
+QT += network
 QT += widgets
 
 CONFIG += c++17
@@ -15,21 +15,37 @@ SOURCES += \
     mapgidroform.cpp \
     modelmodem.cpp \
     moveauv.cpp \
-    widget.cpp
+    widget.cpp \
+    Math_uWave/readerjson.cpp \
+    Math_uWave/sensormove.cpp \
+    Math_uWave/signalpropagation.cpp\
+    Connection/qpiconfig.cpp
 
 HEADERS += \
+    Connection/protocol.h \
+    Connection/pc_protocol.h \
+    Connection/udp_protocol.h \
+    Connection/qpiconfig.h \
     CustomScatterSeries.h \
     gansdata.h \
     graphform.h \
     mapgidroform.h \
     modelmodem.h \
     moveauv.h \
-    widget.h
+    widget.h \
+    Math_uWave/readerjson.h \
+    Math_uWave/sensormove.h \
+    Math_uWave/signalpropagation.h \
+    Math_uWave/stucturs.h \
+    Math_uWave/sensor_uwave.h
+
 
 FORMS += \
     graphform.ui \
     mapgidroform.ui \
     widget.ui
+
+INCLUDEPATH += $$PWD/Math_uWave/include
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -41,3 +57,6 @@ DISTFILES += \
     pictures/octopus_11064758.png \
     pictures/stingray_11064643.png \
     pictures/superhero_2503243.png
+
+RESOURCES += \
+    resource/dark.qrc
