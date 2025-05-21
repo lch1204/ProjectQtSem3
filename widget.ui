@@ -119,7 +119,7 @@
                <item>
                 <widget class="QPushButton" name="pushButtonAbort">
                  <property name="text">
-                  <string>Отмена</string>
+                  <string>Сброс</string>
                  </property>
                 </widget>
                </item>
@@ -217,6 +217,14 @@
               <number>0</number>
              </property>
              <widget class="QWidget" name="Connection">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>376</width>
+                <height>573</height>
+               </rect>
+              </property>
               <attribute name="label">
                <string>Связь</string>
               </attribute>
@@ -1243,6 +1251,46 @@
           <enum>Qt::Vertical</enum>
          </property>
         </widget>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="geometry">
+          <rect>
+           <x>100</x>
+           <y>480</y>
+           <width>181</width>
+           <height>135</height>
+          </rect>
+         </property>
+         <property name="title">
+          <string>Отображение графика</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_24">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_23">
+            <item>
+             <widget class="QRadioButton" name="radioButton">
+              <property name="text">
+               <string>X</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_2">
+              <property name="text">
+               <string>Y</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton_3">
+              <property name="text">
+               <string>Z</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </widget>
      </item>
@@ -1254,7 +1302,7 @@
        <widget class="QWidget" name="page">
         <layout class="QVBoxLayout" name="verticalLayout_15">
          <item>
-          <widget class="MapGidroForm" name="mapPage" native="true">
+          <widget class="Form" name="mapPage" native="true">
            <property name="palette">
             <palette>
              <active>
@@ -1707,7 +1755,7 @@
        <widget class="QWidget" name="page_2">
         <layout class="QVBoxLayout" name="verticalLayout_16">
          <item>
-          <widget class="GraphForm" name="graphPage" native="true"/>
+          <widget class="SetVariable_t" name="graphPage" native="true"/>
          </item>
         </layout>
        </widget>
@@ -1719,15 +1767,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MapGidroForm</class>
+   <class>SetVariable_t</class>
    <extends>QWidget</extends>
-   <header>mapgidroform.h</header>
+   <header location="global">setvariable_t.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>GraphForm</class>
+   <class>Form</class>
    <extends>QWidget</extends>
-   <header>graphform.h</header>
+   <header location="global">form.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

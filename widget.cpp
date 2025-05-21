@@ -3,7 +3,6 @@
 #include <QDebug>
 #include <QStackedWidget>
 
-// using namespace;
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
 {
@@ -43,17 +42,6 @@ Widget::Widget(QWidget *parent)
     on_pbUpdate_clicked();
     on_trajectoryComboBox_textActivated(0);
     connect(data, &GansData::dataModemDel, this, &Widget::delModemMap);
-//    connect(this, &Widget::updateTrajectory, &mapPage->moveAUV, &MoveAUV::tipeTrajectory);
-//    connect(this, &Widget::updateGALSDist, &mapPage->moveAUV, &MoveAUV::updateGALSDist);
-//    connect(this, &Widget::updateSpeed, &mapPage->moveAUV, &MoveAUV::setSpeed);
-//    connect(&mapPage->moveAUV, &MoveAUV::endMove, this, &Widget::on_pbStart_clicked);
-//    connect(&mapPage->moveAUV, &MoveAUV::endMove, mapPage, &MapGidroForm::endMove);
-//    connect(checkBoxShowXY, &QCheckBox::clicked, mapPage, &MapGidroForm::checkXY);
-//    connect(LineEditTime, &QLineEdit::textChanged, &mapPage->moveAUV, &MoveAUV::setTimeModel);
-//    connect(LineEditTime, &QLineEdit::textChanged, graphPage, &GraphForm::setTime);
-//    connect(this, &Widget::modemData, &mapPage->modelModem, &ModelModem::modemData);
-//    connect(&mapPage->modelModem, &ModelModem::setTD, graphPage, &GraphForm::setTD);
-//    connect(this,&Widget::setModemForCalc, &mapPage->modelModem, &ModelModem::setModem);
     stackedWidget->setCurrentIndex(0);
 
     redPalette.setColor(QPalette::Button, Qt::red);
@@ -91,7 +79,7 @@ Widget::Widget(QWidget *parent)
     setPalette(lightPalette);
 
 //    mapPage->moveAUV.setTimeModel("5");
-    graphPage->setTime("5");
+//    graphPage->setTime("5");
 
     ///прокидываем связь
     protocol = new Pult::PC_Protocol(ConfigFile,"pult");
@@ -118,7 +106,9 @@ void Widget::tick()
     label_send->setNum(protocol->udpProtocol->counter_s);
     sendData();
     recieveData();
+
 }
+
 
 void Widget::sendData()
 {
@@ -127,7 +117,18 @@ void Widget::sendData()
 
 void Widget::recieveData()
 {
-
+    mapPage->setVelocityVector_ekf(protocol->rec_data.payload.map.ekf_vx,
+                                   protocol->rec_data.payload.map.ekf_vy);
+    mapPage->setVelocityVector_real(protocol->rec_data.payload.map.real_vx,
+                                   protocol->rec_data.payload.map.real_vy);
+    mapPage->setCircle(protocol->rec_data.payload.map.circle_radius);
+    mapPage->setXY_auv_ekf(protocol->rec_data.payload.map.ekf_x,
+                           protocol->rec_data.payload.map.ekf_y);
+    mapPage->setXY_auv_real(protocol->rec_data.payload.map.real_x,
+                            protocol->rec_data.payload.map.real_y);
+    qDebug() << "real_x" <<protocol->rec_data.payload.map.real_x;
+    qDebug() << "real_y" <<protocol->rec_data.payload.map.real_y;
+    qDebug() << "y" << protocol->rec_data.payload.graph.y;
 }
 
 void Widget::on_setNewObjComboBox_textActivated(const QString &arg1)
@@ -268,7 +269,6 @@ void Widget::on_pbDel_clicked()
 
 void Widget::delModemMap(double x, double y)
 {
-//    mapPage->delMarker(x,y);
 }
 
 
@@ -281,12 +281,10 @@ void Widget::on_pbSetAUV_toggled(bool checked)
     if (checked)
     {
         qDebug() << "checked" << checked;
-//        mapPage->addAUV(x.toInt(),y.toInt());
     }
     else
     {
         qDebug() << "checked" << checked;
-//        mapPage->delAUV();
     }
     ///для передачи в модель
     emit setModemForCalc(x.toFloat(), y.toFloat());
@@ -383,10 +381,10 @@ void Widget::on_pushButtonTheme_clicked(bool checked)
         mapPage->yAxis->setLabelsBrush(QBrush(Qt::black));
         mapPage->chart->setBackgroundBrush(QBrush(Qt::white));
 
-        graphPage->tAxis->setTitleBrush(QBrush(Qt::black));
-        graphPage->dAxis->setTitleBrush(QBrush(Qt::black));
-        graphPage->tAxis->setLabelsBrush(QBrush(Qt::black));
-        graphPage->dAxis->setLabelsBrush(QBrush(Qt::black));
+        graphPage->xAxis->setTitleBrush(QBrush(Qt::black));
+        graphPage->yAxis->setTitleBrush(QBrush(Qt::black));
+        graphPage->xAxis->setLabelsBrush(QBrush(Qt::black));
+        graphPage->yAxis->setLabelsBrush(QBrush(Qt::black));
         graphPage->chart->setBackgroundBrush(QBrush(Qt::white));
     }
     else
@@ -398,10 +396,10 @@ void Widget::on_pushButtonTheme_clicked(bool checked)
         mapPage->yAxis->setLabelsBrush(QBrush(Qt::white));
         mapPage->chart->setBackgroundBrush(QColor(53, 53, 53));
 
-        graphPage->tAxis->setTitleBrush(QBrush(Qt::white));
-        graphPage->dAxis->setTitleBrush(QBrush(Qt::white));
-        graphPage->tAxis->setLabelsBrush(QBrush(Qt::white));
-        graphPage->dAxis->setLabelsBrush(QBrush(Qt::white));
+        graphPage->xAxis->setTitleBrush(QBrush(Qt::white));
+        graphPage->yAxis->setTitleBrush(QBrush(Qt::white));
+        graphPage->xAxis->setLabelsBrush(QBrush(Qt::white));
+        graphPage->yAxis->setLabelsBrush(QBrush(Qt::white));
         graphPage->chart->setBackgroundBrush(QColor(53, 53, 53));
     }
 }
@@ -418,7 +416,7 @@ void Widget::on_pushButtonAbort_clicked()
         pbSetAUV->setChecked(false);
     }
     pbSetAUV->setChecked(false);
-    graphPage->clearTD();
+//    graphPage->clearTD();
 //    mapPage->modelModem.timeCounter = 0;
 }
 
@@ -445,7 +443,7 @@ void Widget::on_cbReady_clicked(bool checked)
 void Widget::on_verticalSlider_sliderMoved(int position)
 {
     qDebug() << "position"<<position;
-    graphPage->dAxis->setRange(0,position);
+//    graphPage->dAxis->setRange(0,position);
 }
 
 

@@ -13,8 +13,8 @@ class UdpProtocol : public QObject {
 public:
     ReceiveStruct rec_data; //структура для приема данных
     SendStruct send_data; //структура для отпарвки данных
-    explicit UdpProtocol (const QString & config = "../../Connection/protocols.conf",
-                          const QString & name = "pult", QObject *parent = 0){
+    explicit UdpProtocol (const QString & config = "protocols.conf",
+                          const QString & name = "agent", QObject *parent = 0){
         QPIConfig conf(config, QIODevice::ReadOnly);
         QPIConfig::Entry & e(conf.getValue(name));
         //прежде чем создать соединение по сети между пультом и
@@ -79,11 +79,21 @@ private:
     QHostAddress m_ip_receiver, m_ip_sender;
     int m_port_receiver, m_port_sender; //номера портов приема и передачи
     //функция вычисления контрольной суммы
-    uint checksum_i(const void * data, int size){ // function for checksum (uint)
-        uint c = 0;
-        for (int i = 0; i < size; ++i)
-            c += ((const uchar*)data)[i];
-        return ~(c + 1);
+    uint checksum_i(const void *data, size_t size) {
+        if (!data || size == 0) {
+            return 0; // или другое значение по умолчанию
+        }
+
+        uint sum = 0;
+        const uint *bytes = static_cast<const uint*>(data);
+
+        for (size_t i = 0; i < size; ++i) {
+            // Контролируемое сложение с защитой от переполнения
+            sum = (sum + bytes[i]) & 0xFFFFFFFF;
+        }
+
+        // Дополнение до двух и инверсия
+        return ~(sum + 1);
     }
     //проверка верна ли контрольная сумма
     bool validate(const ReceiveStruct & data) {
@@ -116,6 +126,9 @@ public slots:
                 //и возвращает false, если это не так
                 //в этой части функции контрольная сумма не верна
 //                qDebug() << "Checksum validate" << validate(rec);
+////                qDebug() << "data" << rec;
+//                qDebug() << "Checksum validation failed. Expected:" << rec.checksum
+//                             << "Calculated:" << checksum_i(&rec, sizeof(rec) - 4);
 //                continue;
                 //оператор continue выполняет пропуск оставшейся части кода
                 //      тела цикла и переходит к следующей итерации цикла

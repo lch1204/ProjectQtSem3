@@ -60,7 +60,7 @@ static const uint qt_meta_data_GansData[] = {
        1,    2,   19,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::UChar, QMetaType::UChar,    3,    4,
+    QMetaType::Void, QMetaType::Double, QMetaType::Double,    3,    4,
 
        0        // eod
 };
@@ -71,13 +71,13 @@ void GansData::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         auto *_t = static_cast<GansData *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->dataModemDel((*reinterpret_cast< quint8(*)>(_a[1])),(*reinterpret_cast< quint8(*)>(_a[2]))); break;
+        case 0: _t->dataModemDel((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (GansData::*)(quint8 , quint8 );
+            using _t = void (GansData::*)(double , double );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&GansData::dataModemDel)) {
                 *result = 0;
                 return;
@@ -127,7 +127,7 @@ int GansData::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void GansData::dataModemDel(quint8 _t1, quint8 _t2)
+void GansData::dataModemDel(double _t1, double _t2)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

@@ -98,9 +98,9 @@ static const uint qt_meta_data_MoveAUV[] = {
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString,    8,
-    QMetaType::Void, QMetaType::SChar, QMetaType::SChar, QMetaType::SChar, QMetaType::SChar,   10,   11,   12,   13,
+    QMetaType::Void, QMetaType::Double, QMetaType::Double, QMetaType::Double, QMetaType::Double,   10,   11,   12,   13,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::SChar, QMetaType::SChar,   16,   17,
+    QMetaType::Void, QMetaType::Double, QMetaType::Double,   16,   17,
     QMetaType::Void, QMetaType::Char,   19,
     QMetaType::Void, QMetaType::Float,   21,
     QMetaType::Void, QMetaType::Float,   23,
@@ -117,9 +117,9 @@ void MoveAUV::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 0: _t->updateAUV((*reinterpret_cast< float(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2]))); break;
         case 1: _t->endMove((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 2: _t->setTimeModel((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 3: _t->updateBorder((*reinterpret_cast< qint8(*)>(_a[1])),(*reinterpret_cast< qint8(*)>(_a[2])),(*reinterpret_cast< qint8(*)>(_a[3])),(*reinterpret_cast< qint8(*)>(_a[4]))); break;
+        case 3: _t->updateBorder((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3])),(*reinterpret_cast< double(*)>(_a[4]))); break;
         case 4: _t->tick(); break;
-        case 5: _t->setAUV_XY((*reinterpret_cast< qint8(*)>(_a[1])),(*reinterpret_cast< qint8(*)>(_a[2]))); break;
+        case 5: _t->setAUV_XY((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2]))); break;
         case 6: _t->tipeTrajectory((*reinterpret_cast< char(*)>(_a[1]))); break;
         case 7: _t->updateGALSDist((*reinterpret_cast< float(*)>(_a[1]))); break;
         case 8: _t->setSpeed((*reinterpret_cast< float(*)>(_a[1]))); break;

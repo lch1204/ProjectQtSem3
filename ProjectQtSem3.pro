@@ -10,9 +10,9 @@ CONFIG += c++17
 
 SOURCES += \
     gansdata.cpp \
-    graphform.cpp \
     main.cpp \
-    mapgidroform.cpp \
+    form.cpp \
+    setvariable_t.cpp \
     modelmodem.cpp \
     moveauv.cpp \
     widget.cpp \
@@ -28,8 +28,8 @@ HEADERS += \
     Connection/qpiconfig.h \
     CustomScatterSeries.h \
     gansdata.h \
-    graphform.h \
-    mapgidroform.h \
+    setvariable_t.h \
+    form.h \
     modelmodem.h \
     moveauv.h \
     widget.h \
@@ -41,9 +41,9 @@ HEADERS += \
 
 
 FORMS += \
-    graphform.ui \
-    mapgidroform.ui \
-    widget.ui
+    form.ui \
+    widget.ui \
+    setvariable_t.ui
 
 INCLUDEPATH += $$PWD/Math_uWave/include
 
